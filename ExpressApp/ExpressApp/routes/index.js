@@ -33,7 +33,7 @@ module.exports = function(app) {
     app.get('/register', 
         renderMw(obj, 'register'));
 
-    app.use('/logout', 
+    app.get('/logout', 
         logoutMw(obj));
 
     app.get('/orders', 
