@@ -1,6 +1,7 @@
-/**
- * If the user is not logged in, redirects to login page/
- */
+const requireOption = require('../requireOption');
+
+ // If the user is not logged in, redirects to login page/
+ 
 module.exports = function (obj) {
 
     return function (req, res, next) {

@@ -1,3 +1,4 @@
+const requireOption = require('../requireOption');
 // Logout
 module.exports = function (obj) {
 
