@@ -1,5 +1,6 @@
 const renderMw = require('../middlewares/generic/render');
 const authMw = require('../middlewares/generic/auth');
+const logoutMw = require('../middlewares/generic/logout');
 
 const User = require('../models/user');
 const Order = require('../models/order');
@@ -14,7 +15,5 @@ module.exports = function(app) {
         Address: Address
     };
 
-   app.get('/orders', 
-        authMw(obj),
-        renderMw(obj, 'adminOrders'));
+   
 };

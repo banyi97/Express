@@ -1,15 +1,22 @@
-'use strict';
-var express = require('express');
-var router = express.Router();
+const renderMw = require('../middlewares/generic/render');
+const logoutMw = require('../middlewares/generic/logout');
+const authMw = require('../middlewares/generic/auth');
 
-/* GET users listing. */
-router.get('/', function (req, res) {
-    res.send('respond with a resource');
-});
+const User = require('../models/user');
+const Order = require('../models/order');
+const Product = require('../models/product');
+const Address = require('../models/address');
 
-router.get('/setting', function (req, res) {
-    res.render('setting', { title: 'Settings', user: {name: "Hello"} });
-});
+module.exports = function(app) {
+    const obj = {
+        User: User,
+        Order: Order,
+        Product: Product,
+        Address: Address
+    };
 
+   app.get('/setting', 
+        authMw(obj),
+        renderMw(obj, 'setting'));
 
-module.exports = router;
+};

@@ -7,17 +7,21 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var auth = require('./routes/auth');
-var orders = require('./routes/orders')
-
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+var session = require('express-session');
+app.use(session({
+    secret: 'db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==',
+    cookie: {
+      maxAge: 1800000
+    },
+    resave: true,
+    saveUninitialized: false
+  }));
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -26,10 +30,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/', auth);
-app.use('/', orders);
+require('./routes/admin')(app);
+require('./routes/auth')(app);
+require('./routes/index')(app);
+require('./routes/orders')(app);
+require('./routes/users')(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

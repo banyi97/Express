@@ -1,18 +1,32 @@
-'use strict';
-var express = require('express');
-var router = express.Router();
+const renderMw = require('../middlewares/generic/render');
+const authMw = require('../middlewares/generic/auth');
+const logoutMw = require('../middlewares/generic/logout');
 
-/* GET home page. */
-router.get('/login', function (req, res) {
-    res.render('login', { title: "Login" });
-});
+const User = require('../models/user');
+const Order = require('../models/order');
+const Product = require('../models/product');
+const Address = require('../models/address');
 
-router.get('/register', function (req, res) {
-    res.render('register', { title: "Register" });
-});
+module.exports = function(app) {
+    const obj = {
+        User: User,
+        Order: Order,
+        Product: Product,
+        Address: Address
+    };
 
-router.get('/logout', function (req, res) {
-    res.render('index', { title: "Express", user: null });
-});
+    app.get('/login', 
+        renderMw(obj, 'login'));
 
-module.exports = router;
+    app.use('/login',
+                                            authMw(obj),
+        renderMw(obj, 'adminOrders'));
+
+    app.get('/register', 
+        renderMw(obj, 'register'));
+
+     //   app.use('/register')
+
+    app.use('/logout', 
+        logoutMw(obj));
+};
