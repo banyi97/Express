@@ -7,6 +7,7 @@ module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 
     return function (req, res, next) {
+        console.log(req.body)
         if (  
             typeof req.body.user === 'undefined' ||
             typeof req.body.user.email === 'undefined' || 
@@ -14,14 +15,16 @@ module.exports = function (obj) {
             ){
             return next();
         }
-        var user = UserModel.findOne({ username: request.body.user.email }).exec();
-        if(!user) {
-            return response.status(400).send({ message: "The username does not exist" });
-        }
-        if(!Bcrypt.compareSync(request.body.user.password, user.password)) {
-            return response.status(400).send({ message: "The password is invalid" });
-        }
-        return res.redirect('/')
+        UserModel.findOne({ email: req.body.user.email }).exec((err, user) => {
+            if(!user) {
+                return res.status(400).send({ message: "The username does not exist" });
+            }
+            if(!bcrypt.compareSync(req.body.user.password, user.password)) {
+                return res.status(400).send({ message: "The password is invalid" });
+            }
+            req.session.userid = user._id;
+            return res.redirect('/');
+        });
     };
   
 };

@@ -24,7 +24,7 @@ module.exports = function(app) {
     app.get('/login', 
         renderMw(obj, 'login'));
 
-    app.use('/login',
+    app.post('/login',
         loginMw(obj));
 
     app.post('/register',
