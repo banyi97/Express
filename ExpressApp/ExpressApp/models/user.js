@@ -5,7 +5,8 @@ const User = db.model('Users', {
     email: String,
     password: String,
     firstName: String,
-    lastName: String
+    lastName: String,
+    permission: String
 });
 
 module.exports = User;

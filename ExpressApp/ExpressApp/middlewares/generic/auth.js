@@ -13,7 +13,7 @@ module.exports = function (obj) {
         if(err){
           return res.redirect('/login');
         }
-        res.locals.user = {name: user.firstName};
+        res.locals.user = user;
         console.log(user)
         return next();
       });

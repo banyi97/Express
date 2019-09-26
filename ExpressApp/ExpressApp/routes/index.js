@@ -43,4 +43,19 @@ module.exports = function(app) {
     app.get('/user/setting', 
         authMw(obj),
         renderMw(obj, 'setting'));
+    
+    app.get('/admin/products', 
+        authMw(obj),
+        renderMw(obj, 'adminCustomers'));
+    
+    app.get('/admin/orders', 
+        authMw(obj),
+        renderMw(obj, 'adminOrders'));
+
+    app.get('/admin/customers', 
+        authMw(obj),
+        renderMw(obj, 'adminProducts'));
+
+    app.post('/changePassword',
+        authMw(obj));
 };
