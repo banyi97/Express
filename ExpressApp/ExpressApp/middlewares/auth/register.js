@@ -23,7 +23,6 @@ module.exports = function (obj) {
             }
             var user = new UserModel(req.body.user);
             user.permission = "user";
-            console.log(user._id)
             user.save((err) => {
             if(err){
                 return next();

@@ -8,13 +8,15 @@ const User = require('../models/user');
 const Order = require('../models/order');
 const Product = require('../models/product');
 const Address = require('../models/address');
+const Brand = require('../models/brand');
 
 module.exports = function(app) {
     const obj = {
         User: User,
         Order: Order,
         Product: Product,
-        Address: Address
+        Address: Address,
+        Brand: Brand
     };
 
    app.get('/', 

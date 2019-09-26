@@ -6,7 +6,11 @@ const User = db.model('Users', {
     password: String,
     firstName: String,
     lastName: String,
-    permission: String
+    permission: String,
+    _orders: {
+        type: Schema.Types.ObjectId,
+        ref: 'Order'
+    }
 });
 
 module.exports = User;
