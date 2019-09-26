@@ -15,7 +15,7 @@ module.exports = function (obj) {
                 return next(err);
             }
 
-            return res.status(200);
+            return res.status(200).send();
         });
     };
 };

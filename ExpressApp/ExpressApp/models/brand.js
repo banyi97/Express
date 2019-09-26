@@ -9,4 +9,4 @@ const Brand = db.model('Brand', {
     }
 });
 
-module.exports = Address;
+module.exports = Brand;

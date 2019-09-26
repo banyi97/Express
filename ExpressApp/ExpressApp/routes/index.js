@@ -3,6 +3,7 @@ const authMw = require('../middlewares/generic/auth');
 const logoutMw = require('../middlewares/generic/logout');
 const loginMw = require('../middlewares/auth/login');
 const registerMw = require('../middlewares/auth/register');
+const changePasswordMw = require('../middlewares/user/changePassword');
 
 const User = require('../models/user');
 const Order = require('../models/order');
@@ -59,5 +60,6 @@ module.exports = function(app) {
         renderMw(obj, 'adminProducts'));
 
     app.post('/changePassword',
-        authMw(obj));
+        authMw(obj),
+        changePasswordMw(obj));
 };
