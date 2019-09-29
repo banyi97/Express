@@ -13,20 +13,16 @@ module.exports = function (obj) {
             return next();
         }
         BrandModel.findOne({ name: req.body.brand.name }).exec((err, _brand) => {
-            if(_brand){
+            if(err || _brand){
                 return next();
             }
             var brand = new BrandModel(req.body.brand);
+            brand.createDate = new Date();
             brand.save(err => {
                 if(err){
                     return next();
-                }
-                BrandModel.find({}, (err, brands) => {
-                    if(err){
-                        return next();
-                    }
-                    return res.status(200).send({ brands: brands });
-                })
+                }           
+                return res.status(200).send({ brand: brand });
             })
         });
     };

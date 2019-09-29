@@ -13,17 +13,19 @@ module.exports = function (obj) {
             ){
             return next();
         }
-        BrandModel.findOne({ name: req.body.brand.name }).exec((err, brand) => {
-            if(brand){
+        BrandModel.findOne({ _id: req.body.brand._id }).exec((err, brand) => {
+            if(err){
                 return next();
             }
-            brand.name = req.body.brand.name;
-            brand.save(err => {
-                if(err){
-                    return next();
-                }
-                return res.status(200).send();
-            })
+            if(brand){
+                brand.name = req.body.brand.name;
+                brand.save(err => {
+                    if(err){
+                        return next();
+                    }
+                    return res.status(200).send(brand);
+                })
+            }
         });
     };
 };

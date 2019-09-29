@@ -6,7 +6,8 @@ const Brand = db.model('Brand', {
     product: {
         type: Schema.Types.ObjectId,
         ref: 'Product'
-    }
+    },
+    createDate: Date
 });
 
 module.exports = Brand;

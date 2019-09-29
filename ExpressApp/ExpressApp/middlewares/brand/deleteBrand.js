@@ -10,7 +10,7 @@ module.exports = function (obj) {
             return next();
         }
 
-        res.locals.bramd.remove(err => {
+        res.locals.brand.remove(err => {
             if (err) {
                 return next(err);
             }
