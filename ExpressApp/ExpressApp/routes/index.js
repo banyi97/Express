@@ -89,12 +89,12 @@ module.exports = function(app) {
         adminAuthMw(obj),
         brandCreateMw(obj));
 
-    app.put('/admin/brands',
+    app.put('/admin/brand/:id',
         authMw(obj),
         adminAuthMw(obj),
         brandModifyMw(obj));
 
-    app.delete('/admin/brands',
+    app.delete('/admin/brand/:id',
         authMw(obj),
         adminAuthMw(obj),
         brandRemoveMw(obj));
@@ -114,12 +114,12 @@ module.exports = function(app) {
         adminAuthMw(obj),
         productCreateMw(obj));
 
-    app.put('/admin/products',
+    app.put('/admin/products/:id',
         authMw(obj),
         adminAuthMw(obj),
         productModifyMw(obj));
 
-    app.delete('/admin/products',
+    app.delete('/admin/products/:id',
         authMw(obj),
         adminAuthMw(obj),
         productRemoveMw(obj));
