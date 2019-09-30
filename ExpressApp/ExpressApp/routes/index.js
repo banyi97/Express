@@ -20,6 +20,12 @@ const productRemoveMw = require('../middlewares/product/removeProduct');
 const productGetsMw = require('../middlewares/product/getProducts');
 const productGetMw = require('../middlewares/product/getProduct');
 
+const addressCreateMw = require('../middlewares/address/createAddress');
+const addressModifyMw = require('../middlewares/address/modifyAddress');
+const addressRemoveMw = require('../middlewares/address/removeAddress');
+const addressGetsMw = require('../middlewares/address/getAllAddress');
+const addressGetMw = require('../middlewares/address/getAddress');
+
 const User = require('../models/user');
 const Order = require('../models/order');
 const Product = require('../models/product');
@@ -127,4 +133,24 @@ module.exports = function(app) {
     app.post('/changePassword',
         authMw(obj),
         changePasswordMw(obj));
+
+    app.get('/addressAll', 
+        authMw(obj),
+        addressGetsMw(obj));
+
+    app.get('/address/:id', 
+        authMw(obj),
+        addressGetMw(obj));
+
+    app.post('/address',
+        authMw(obj),
+        addressCreateMw(obj));
+
+    app.put('/address/:id',
+        authMw(obj),
+        addressModifyMw(obj));
+
+    app.delete('/address/:id',
+        authMw(obj),
+        addressRemoveMw(obj));
 };

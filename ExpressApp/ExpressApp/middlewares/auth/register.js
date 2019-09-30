@@ -22,6 +22,7 @@ module.exports = function (obj) {
                 return next();
             }
             var user = new UserModel(req.body.user);
+            user.createDate = new Date();
             user.permission = "user";
             user.save((err) => {
             if(err){

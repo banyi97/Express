@@ -6,6 +6,11 @@ const Address = db.model('Address', {
     city: String,
     state: String,
     zip: String,
+    createDate: Date,
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
 });
 
 module.exports = Address;

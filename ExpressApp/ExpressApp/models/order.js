@@ -4,7 +4,8 @@ const db = require('../database/db')
 const Order = db.model('Orders', {
     nev: String,
     cim: String,
-    tel: String
+    tel: String,
+    createDate: Date,
 });
 
 module.exports = Order;

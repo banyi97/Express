@@ -7,6 +7,7 @@ const Product = db.model('Products', {
     quantity: String,
     type: String,
     image: String,  
+    createDate: Date,
 });
 
 module.exports = Product;

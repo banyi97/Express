@@ -10,7 +10,8 @@ const User = db.model('Users', {
     _orders: {
         type: Schema.Types.ObjectId,
         ref: 'Order'
-    }
+    },
+    createDate: Date,
 });
 
 module.exports = User;
