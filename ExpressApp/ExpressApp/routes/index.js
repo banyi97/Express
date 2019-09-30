@@ -1,14 +1,24 @@
 const renderMw = require('../middlewares/generic/render');
+
 const authMw = require('../middlewares/generic/auth');
-const logoutMw = require('../middlewares/generic/logout');
+const noAuthMw = require('../middlewares/generic/noAuth');
+const adminAuthMw = require('../middlewares/generic/adminAuth');
+
 const loginMw = require('../middlewares/auth/login');
 const registerMw = require('../middlewares/auth/register');
+const logoutMw = require('../middlewares/generic/logout');
 const changePasswordMw = require('../middlewares/user/changePassword');
 
 const brandCreateMw = require('../middlewares/brand/createBrand');
 const brandModifyMw = require('../middlewares/brand/modifyBrand');
 const brandRemoveMw = require('../middlewares/brand/deleteBrand');
 const brandGetsMw = require('../middlewares/brand/getBrands');
+
+const productCreateMw = require('../middlewares/product/createProduct');
+const productModifyMw = require('../middlewares/product/modifyProduct');
+const productRemoveMw = require('../middlewares/product/removeProduct');
+const productGetsMw = require('../middlewares/product/getProducts');
+const productGetMw = require('../middlewares/product/getProduct');
 
 const User = require('../models/user');
 const Order = require('../models/order');
@@ -25,11 +35,11 @@ module.exports = function(app) {
         Brand: Brand
     };
 
-   app.get('/', 
-        authMw(obj),
+    app.get('/', 
+        noAuthMw(obj),
         renderMw(obj, 'index'));
 
-    app.get('/login', 
+    app.get('/login',
         renderMw(obj, 'login'));
 
     app.post('/login',
@@ -42,11 +52,12 @@ module.exports = function(app) {
         renderMw(obj, 'register'));
 
     app.get('/logout', 
+        authMw(obj),
         logoutMw(obj));
 
     app.get('/orders', 
         authMw(obj),
-        renderMw(obj, 'adminOrders'));
+        renderMw(obj, 'orders'));
 
     app.get('/user/setting', 
         authMw(obj),
@@ -54,32 +65,64 @@ module.exports = function(app) {
     
     app.get('/admin/products', 
         authMw(obj),
+        adminAuthMw(obj),
         renderMw(obj, 'adminCustomers'));
     
     app.get('/admin/orders', 
         authMw(obj),
+        adminAuthMw(obj),
         renderMw(obj, 'adminOrders'));
 
     app.get('/admin/customers', 
         authMw(obj),
+        adminAuthMw(obj),
         renderMw(obj, 'adminProducts'));
 
     app.get('/admin/brands', 
         authMw(obj),
+        adminAuthMw(obj),
         brandGetsMw(obj),
         renderMw(obj, 'adminBrands'));
 
     app.post('/admin/brands',
         authMw(obj),
+        adminAuthMw(obj),
         brandCreateMw(obj));
 
     app.put('/admin/brands',
         authMw(obj),
+        adminAuthMw(obj),
         brandModifyMw(obj));
 
     app.delete('/admin/brands',
         authMw(obj),
+        adminAuthMw(obj),
         brandRemoveMw(obj));
+
+    app.get('/products', 
+        noAuthMw(obj),
+        brandGetsMw(obj),
+        renderMw(obj, 'products'));
+
+    app.get('/product/:id', 
+        noAuthMw(obj),
+        productGetMw(obj),
+        renderMw(obj, 'prodPage'));
+
+    app.post('/admin/products',
+        authMw(obj),
+        adminAuthMw(obj),
+        productCreateMw(obj));
+
+    app.put('/admin/products',
+        authMw(obj),
+        adminAuthMw(obj),
+        productModifyMw(obj));
+
+    app.delete('/admin/products',
+        authMw(obj),
+        adminAuthMw(obj),
+        productRemoveMw(obj));
 
     app.post('/changePassword',
         authMw(obj),

@@ -6,13 +6,16 @@ module.exports = function (obj) {
     const ProductModel = requireOption(obj, 'Product');
 
     return function (req, res, next) {       
-        ProductModel.find({name: req.body.product.name}).exec((err, prod) => {
-            if(err){
-                return next();
-            }
-            
+        if (typeof res.locals.product === 'undefined') {
             return next();
-        //    return res.status(200).send(brands = _brands);
+        }
+
+        res.locals.product.remove(err => {
+            if (err) {
+                return next(err);
+            }
+
+            return res.status(200).send();
         });
     };
 };

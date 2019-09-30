@@ -5,7 +5,7 @@ const requireOption = require('../requireOption');
 module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 
-    return function (req, res, next) {
+    return function (req, res, next) {     
       if (typeof req.session.userid === 'undefined') {     
         return res.redirect('/login');
       }
@@ -14,7 +14,6 @@ module.exports = function (obj) {
           return res.redirect('/login');
         }
         res.locals.user = user;
-        console.log(user)
         return next();
       });
     };

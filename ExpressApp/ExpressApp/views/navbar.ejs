@@ -23,22 +23,22 @@
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="/login">Login</a>
-                    </li>
-                <% } %>    
-                <% if (user.permission === "user") { %>
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Admin menu
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/admin/brands">Brand manage</a>
-                        <a class="dropdown-item" href="/admin/products">Product manage</a>
-                        <a class="dropdown-item" href="/admin/orders">Order magage</a>
-                        <a class="dropdown-item" href="/admin/customers">Customer magage</a>
-                      </div>
-                    </li>     
-                <% } %>            
+                    </li>                   
+                <% } %>                           
                 <% if (user) { %>
+                  <% if (user.permission === "admin") { %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin menu
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <a class="dropdown-item" href="/admin/brands">Brand manage</a>
+                          <a class="dropdown-item" href="/admin/products">Product manage</a>
+                          <a class="dropdown-item" href="/admin/orders">Order magage</a>
+                          <a class="dropdown-item" href="/admin/customers">Customer magage</a>
+                        </div>
+                      </li>     
+                  <% } %>    
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <%= user.firstName %>

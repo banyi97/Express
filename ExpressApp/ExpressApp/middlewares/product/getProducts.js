@@ -6,11 +6,11 @@ module.exports = function (obj) {
     const ProductModel = requireOption(obj, 'Product');
 
     return function (req, res, next) {       
-        ProductModel.find({name: req.body.product.name}).exec((err, prod) => {
+        ProductModel.find({}).exec((err, prods) => {
             if(err){
                 return next();
             }
-            
+            res.locals.products = prods;
             return next();
         //    return res.status(200).send(brands = _brands);
         });
