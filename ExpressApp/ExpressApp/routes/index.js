@@ -8,6 +8,9 @@ const loginMw = require('../middlewares/auth/login');
 const registerMw = require('../middlewares/auth/register');
 const logoutMw = require('../middlewares/generic/logout');
 const changePasswordMw = require('../middlewares/user/changePassword');
+ 
+const adminCustomersMw = require('../middlewares/user/adminCustomers');
+const adminOrdersMw = require('../middlewares/order/adminOrder');
 
 const brandCreateMw = require('../middlewares/brand/createBrand');
 const brandModifyMw = require('../middlewares/brand/modifyBrand');
@@ -72,23 +75,29 @@ module.exports = function(app) {
     app.get('/admin/products', 
         authMw(obj),
         adminAuthMw(obj),
-        renderMw(obj, 'adminCustomers'));
+        renderMw(obj, 'adminProducts'));
     
     app.get('/admin/orders', 
         authMw(obj),
         adminAuthMw(obj),
+        adminOrdersMw(obj),
         renderMw(obj, 'adminOrders'));
 
     app.get('/admin/customers', 
         authMw(obj),
         adminAuthMw(obj),
-        renderMw(obj, 'adminProducts'));
+        adminCustomersMw(obj),
+        renderMw(obj, 'adminCustomers'));
 
     app.get('/admin/brands', 
         authMw(obj),
         adminAuthMw(obj),
-        brandGetsMw(obj),
         renderMw(obj, 'adminBrands'));
+
+    app.get('/admin/brandsREST', 
+        authMw(obj),
+        adminAuthMw(obj),
+        brandGetsMw(obj));
 
     app.post('/admin/brands',
         authMw(obj),

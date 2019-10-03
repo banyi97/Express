@@ -27,16 +27,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>test@test.hu</td>
-                  <td>d411cb21-41d7-43a3-b815-782577cd6124</td>
-                  <td>2019 09 25 15:12:42</td>
-                  <td>Pending</td>
-                  <td><button class="btn btn-primary">View</button></td>
-                  <td><button class="btn btn-secondary">Change</button></td>
-                  <td><button class="btn btn-danger">Remove</button></td>
-                </tr>
+                <% for (var i = 0; i < orders.length; i++) { %>
+                  <tr>
+                    <th scope="row"><%= i + 1 %></td>
+                    <td><%= orders[i] %></td>
+                    <td><%= orders[i] %></td>
+                    <td><button class="btn btn-secondary">Rename</button></td>
+                    <td><button class="btn btn-danger">Remove</button></td>
+                  </tr>    
+                 <% } %>
               </tbody>
         </table>
     </div>

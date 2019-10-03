@@ -16,7 +16,7 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             Add new
           </button>
-        <table class="table">
+        <table class="table" id="brandsTable">
             <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -26,16 +26,16 @@
                   <th scope="col">Remove</th>
                 </tr>
               </thead>
-              <tbody>
-                <% for (var i = 0; i < brands.length; i++) { %>
-                  <tr>
-                    <th scope="row"><%= i + 1 %></td>
-                    <td><%= brands[i].name %></td>
-                    <td><%= brands[i].createDate %></td>
-                    <td><button class="btn btn-secondary">Rename</button></td>
-                    <td><button class="btn btn-danger">Remove</button></td>
-                  </tr>    
-                 <% } %>
+              <tbody>       
+                  <% for (var i = 0; i < brands.length; i++) { %>
+                    <tr>
+                      <th scope="row"><%= i + 1 %></td>
+                      <td><%= brands[i].name %></td>
+                      <td><%= brands[i].createDate %></td>
+                      <td><button class="btn btn-secondary">Rename</button></td>
+                      <td><button class="btn btn-danger">Remove</button></td>
+                    </tr>    
+                   <% } %>    
               </tbody>
         </table>
     </div>
@@ -69,6 +69,7 @@
 </html>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 <script>
   function create(){
     axios.post(
@@ -76,11 +77,21 @@
       {
         brand: 
         {
-          name: "Hejjho",
+          name: $("#exampleInputName").val(),
         }
       })
       .then(resp => {
-      console.log(resp)
+        var newRowContent =
+          `
+                  <tr id="${resp.data.brand._id}">
+                    <th scope="row">iii</td>
+                    <td>${resp.data.brand.name}</td>
+                    <td>${resp.data.brand.createDate}</td>
+                    <td><button class="btn btn-secondary">Rename</button></td>
+                    <td><button class="btn btn-danger">Remove</button></td>
+                  </tr>  
+          `;
+        $("#brandsTable tbody").append(newRowContent);  
     }).catch(error => {
       console.log(error)
     }) 
@@ -88,8 +99,16 @@
   function rename(){
 
   }
-  function remove(){
-
+  function remove(caller){
+    console.log(caller)
+    axios.delete(
+      '/admin/brands/' + id, 
+      )
+      .then(resp => {
+        $('#'+ index).remove();
+    }).catch(error => {
+      console.log(error)
+    }) 
   }
   $('.modal').on('hidden.bs.modal', function(){
       $(this).find('form')[0].reset();
