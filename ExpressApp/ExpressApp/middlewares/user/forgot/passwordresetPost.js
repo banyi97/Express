@@ -1,4 +1,4 @@
-const requireOption = require('../requireOption');
+const requireOption = require('../../requireOption');
 const bcrypt = require('bcrypt');
  // If the user is not logged in, redirects to login page/
  
@@ -10,21 +10,25 @@ module.exports = function (obj) {
         if (  
             typeof req.body.user === 'undefined' ||
             typeof req.body.user.email === 'undefined' ||
+            typeof req.body.user.hash === 'undefined' ||
             typeof req.body.user.newPassword === 'undefined'
             ){
-            return next();
+            return res.redirect('/forgot');
         }
-        UserModel.findOne({ email: req.session.userid }).exec((err, user) => {
+        UserModel.findOne({ email: req.body.user.email }).exec((err, user) => {
             if(!user) {
                 return res.status(400).send({ message: "The username does not exist" });
             }
+            if(user.token !== req.body.user.hash){
+                return next();
+            }
+            user.token = null;
             user.password = bcrypt.hashSync(req.body.user.newPassword, 10);
             user.save(err => {
                 if(err){
                     return next();
                 }
-                console.log('ok')
-                return res.status(200).send();
+                return res.redirect('/login');
             })      
         });
     };

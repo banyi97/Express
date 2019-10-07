@@ -11,6 +11,7 @@ const User = db.model('Users', {
         type: Schema.Types.ObjectId,
         ref: 'Order'
     },
+    token: String,
     createDate: Date,
 });
 

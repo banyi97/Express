@@ -30,11 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//require('./routes/admin')(app);
-//require('./routes/auth')(app);
 require('./routes/index')(app);
-//require('./routes/orders')(app);
-//require('./routes/users')(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

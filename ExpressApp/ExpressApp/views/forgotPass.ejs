@@ -18,19 +18,21 @@
             <button type="submit" class="btn btn-primary">Send</button>        
         </form>    
         <%}%>
-        <%else {%>
-              <form class="col-6" method="POST">
-                <div class="form-group col-md-6">
-                    <label for="inputPassword">New password</label>
-                    <input type="password" name="user[password]" class="form-control" id="inputPassword" placeholder="Your new password">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputPasswordConf">New password confirm</label>
-                    <input type="password" name="user[password]" class="form-control" id="inputPasswordConf">
-                  </div>     
-                <button type="submit" class="btn btn-primary">Send</button>        
-            </form>  
-        <% }%>
+        <% if(forgot == false) {%>
+          <form class="col-6" method="POST">
+              <input type="hidden" name="user[email]"  value="<%= email %>" >
+              <input type="hidden" name="user[hash]"  value="<%= hash %>" >
+            <div class="form-group col-md-6">
+                <label for="inputPassword">New password</label>
+                <input type="password" required name="user[newPassword]" class="form-control" id="inputPassword" placeholder="Your new password">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPasswordConf">New password confirm</label>
+                <input type="password" required name="user[newPasswordConfirm]" class="form-control" id="inputPasswordConf">
+              </div>                     
+            <button type="submit" class="btn btn-primary">Send</button>        
+        </form>  
+    <% }%>
     </div>
   </body>
 </html>

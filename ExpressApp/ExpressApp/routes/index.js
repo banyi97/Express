@@ -1,4 +1,5 @@
 const renderMw = require('../middlewares/generic/render');
+const getHTMLmw = require('../middlewares/generic/getHTMLfiles');
 
 const authMw = require('../middlewares/generic/auth');
 const noAuthMw = require('../middlewares/generic/noAuth');
@@ -8,7 +9,11 @@ const loginMw = require('../middlewares/auth/login');
 const registerMw = require('../middlewares/auth/register');
 const logoutMw = require('../middlewares/generic/logout');
 const changePasswordMw = require('../middlewares/user/changePassword');
- 
+const forgotPasswordMw = require('../middlewares/user/forgot/forgotpass');
+const forgotPasswordPOSTMw = require('../middlewares/user/forgot/forgotpassPost');
+const passwordResetMw = require('../middlewares/user/forgot/passwordreset');
+const passwordResetPostMw = require('../middlewares/user/forgot/passwordresetPost');
+
 const adminCustomersMw = require('../middlewares/user/adminCustomers');
 const adminOrdersMw = require('../middlewares/order/adminOrder');
 
@@ -45,6 +50,7 @@ module.exports = function(app) {
     };
 
     app.get('/', 
+    //    getHTMLmw(__dirname ,'index.html'),
         noAuthMw(obj),
         renderMw(obj, 'index'));
 
@@ -63,6 +69,24 @@ module.exports = function(app) {
     app.get('/logout', 
         authMw(obj),
         logoutMw(obj));
+        
+    app.get('/forgot', 
+        noAuthMw(obj),
+        forgotPasswordMw(obj),
+        renderMw(obj,'forgotPass'));   
+
+    app.post('/forgot',
+        noAuthMw(obj),
+        forgotPasswordPOSTMw(obj));
+
+    app.get('/password-reset?:token', 
+        noAuthMw(obj),
+        passwordResetMw(obj),
+        renderMw(obj,'forgotPass'));   
+
+    app.post('/password-reset', 
+        noAuthMw(obj),
+        passwordResetPostMw(obj)); 
 
     app.get('/orders', 
         authMw(obj),
