@@ -19,6 +19,9 @@ module.exports = function (obj) {
             if(!user) {
                 return res.status(400).send({ message: "The username does not exist" });
             }
+            if(user.tonen === null){
+                return next();
+            }
             if(user.token !== req.body.user.hash){
                 return next();
             }
