@@ -14,7 +14,21 @@
 </head>
   <body>
     <% include navbar.ejs %>   
-
    Prodpage
+   <div class="container">
+    <div class="row">
+      <div class="col-3 text-center">
+          <img src="" width="200" height="200" />
+      </div>
+      <div class="col-9">
+          <ul class="list-group">
+            <li class="list-group-item"> <%= product.name %> </li>
+            <li class="list-group-item"> <%= product.price %> </li>
+            <li class="list-group-item"> <%= product.brand %> </li>
+            <li class="list-group-item"> <%= product.type %> </li>
+          </ul>
+      </div>
+    </div>
+   </div>
   </body>
 </html>

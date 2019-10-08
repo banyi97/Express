@@ -13,5 +13,26 @@
   <body>
     <% include navbar.ejs %>   
     Products
+    <% if (products) { %>
+      <% products.forEach(product => { %>
+        <div class="container">
+          <div class="row">
+            <div class="text-center">
+              <a href="/product/?id=<%= product.id %>">
+                <div>
+                  <img src="" width="200" height="200" alt="headphone image">
+                </div>
+              </a>
+            </div>
+            <div>
+              <%= product.name %>
+            </div>
+            <div>
+              <%= product.price %>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    <% } %>
   </body>
 </html>
