@@ -1,4 +1,5 @@
 const renderMw = require('../middlewares/generic/render');
+const errorHandlerMw = require('../middlewares/generic/errorHandler');
 const getHTMLmw = require('../middlewares/generic/getHTMLfiles');
 
 const authMw = require('../middlewares/generic/auth');
@@ -13,6 +14,7 @@ const forgotPasswordMw = require('../middlewares/user/forgot/forgotpass');
 const forgotPasswordPOSTMw = require('../middlewares/user/forgot/forgotpassPost');
 const passwordResetMw = require('../middlewares/user/forgot/passwordreset');
 const passwordResetPostMw = require('../middlewares/user/forgot/passwordresetPost');
+const addressMw = require('../middlewares/user/address');
 
 const adminCustomersMw = require('../middlewares/user/adminCustomers');
 const adminOrdersMw = require('../middlewares/order/adminOrder');
@@ -55,15 +57,21 @@ module.exports = function(app) {
         renderMw(obj, 'index'));
 
     app.get('/login',
+        errorHandlerMw(obj),
         renderMw(obj, 'login'));
 
     app.post('/login',
-        loginMw(obj));
-
-    app.post('/register',
-        registerMw(obj));
+        loginMw(obj),
+        errorHandlerMw(obj),
+        renderMw(obj, 'login'));
 
     app.get('/register', 
+        errorHandlerMw(obj),
+        renderMw(obj, 'register'));
+
+    app.post('/register',
+        registerMw(obj),
+        errorHandlerMw(obj),
         renderMw(obj, 'register'));
 
     app.get('/logout', 
@@ -94,6 +102,11 @@ module.exports = function(app) {
 
     app.get('/user/setting', 
         authMw(obj),
+        renderMw(obj, 'setting'));
+
+    app.post('/user/setting/address/modify', 
+        authMw(obj),
+        addressMw(obj),
         renderMw(obj, 'setting'));
     
     app.get('/admin/products', 
@@ -177,6 +190,7 @@ module.exports = function(app) {
 
     app.post('/address',
         authMw(obj),
+        addressMw(obj),
         addressCreateMw(obj));
 
     app.put('/address/:id',

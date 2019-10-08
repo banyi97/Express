@@ -6,6 +6,7 @@ const Order = db.model('Orders', {
     cim: String,
     tel: String,
     createDate: Date,
+    state: String
 });
 
 module.exports = Order;

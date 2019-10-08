@@ -7,7 +7,6 @@ module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 
     return function (req, res, next) {
-        console.log(req.body)
         if (  
             typeof req.body.user === 'undefined' ||
             typeof req.body.user.email === 'undefined' || 
@@ -17,10 +16,12 @@ module.exports = function (obj) {
         }
         UserModel.findOne({ email: req.body.user.email }).exec((err, user) => {
             if(!user) {
-                return res.status(400).send({ message: "The username does not exist" });
+                res.locals.errors = "Username or password is not valid"
+                return next();
             }
             if(!bcrypt.compareSync(req.body.user.password, user.password)) {
-                return res.status(400).send({ message: "The password is invalid" });
+                res.locals.errors = "Username or password is not valid"
+                return next();
             }
             req.session.userid = user._id;
             return res.redirect('/');

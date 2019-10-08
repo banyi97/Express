@@ -1,6 +1,7 @@
 const requireOption = require('../requireOption');
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
+const validator = require('validator');
+
  // If the user is not logged in, redirects to login page/
  
 module.exports = function (obj) {
@@ -14,13 +15,23 @@ module.exports = function (obj) {
             typeof req.body.user.firstName === 'undefined' ||
             typeof req.body.user.lastName === 'undefined' 
             ){
-            return next();
+                return next();
         } 
-        req.body.user.password = bcrypt.hashSync(req.body.user.password, 10);
+        if(!validator.isEmail(req.body.user.email)){
+            res.locals.errors = {email : "Email is not a valid email address"};
+            return next();
+        }
+        if(!validator.isLength(req.body.user.password, {min:6})){
+            res.locals.errors = {password : "Password is not a valid"};
+            return next();
+        }
         UserModel.findOne({ email: req.body.user.email }).exec((err, _user) => {
             if(_user){
+                console.log(_user)
+                res.locals.errors = {email : "This email address is already used"};
                 return next();
             }
+            req.body.user.password = bcrypt.hashSync(req.body.user.password, 10);
             var user = new UserModel(req.body.user);
             user.createDate = new Date();
             user.permission = "user";
