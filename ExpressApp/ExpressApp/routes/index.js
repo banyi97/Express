@@ -170,10 +170,10 @@ module.exports = function(app) {
 
     app.get('/products', 
         noAuthMw(obj),
-        brandGetsMw(obj),
+        productGetsMw(obj),
         renderMw(obj, 'products'));
 
-    app.get('/product/:id', 
+    app.get('/product/?:id', 
         noAuthMw(obj),
         productGetMw(obj),
         renderMw(obj, 'prodPage'));
