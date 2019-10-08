@@ -6,22 +6,23 @@ module.exports = function (obj) {
     const BrandModel = requireOption(obj, 'Brand');
 
     return function (req, res, next) {
+        console.log('called')
         if (  
             typeof req.body.brand === 'undefined' ||
-            typeof req.body.brand._id === 'undefined' ||
-            typeof req.body.brand.name === 'undefined'
+            typeof req.body.brand.id === 'undefined' ||
+            typeof req.body.brand.newName === 'undefined'
             ){
-            return next();
+            return next("type error");
         }
-        BrandModel.findOne({ _id: req.body.brand._id }).exec((err, brand) => {
+        BrandModel.findOne({ _id: req.body.brand.id }).exec((err, brand) => {
             if(err){
-                return next();
+                res.status(400).send("find error");
             }
             if(brand){
-                brand.name = req.body.brand.name;
+                brand.name = req.body.brand.newName;
                 brand.save(err => {
                     if(err){
-                        return next();
+                        return res.status(400).send("save error");
                     }
                     return res.status(200).send(brand);
                 })

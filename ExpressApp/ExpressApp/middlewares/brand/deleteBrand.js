@@ -6,16 +6,16 @@ module.exports = function (obj) {
     const BrandModel = requireOption(obj, 'Brand');
 
     return function (req, res, next) {
-        if (typeof res.locals.brand === 'undefined') {
+        if ( typeof req.query.id === 'undefined' ){
             return next();
         }
-
-        res.locals.brand.remove(err => {
-            if (err) {
-                return next(err);
-            }
-
-            return res.status(200).send();
-        });
+        BrandModel.findOne({_id: req.query.id}).exec((err, brand) => {
+            brand.remove(err => {
+                if (err) {
+                    return next(err);
+                }
+                return res.redirect('/admin/brands');
+            })
+        })
     };
 };

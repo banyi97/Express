@@ -4,7 +4,6 @@ module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 
     return function (req, res, next) {   
-        console.log(req.query.id)
         if ( typeof req.query.id === 'undefined' ){
             return next();
         }

@@ -10,9 +10,9 @@ module.exports = function (obj) {
             if(err){
                 return next();
             }
-        //    res.locals.brands = _brands;
-        //    return next();
-            return res.status(200).send(brands = _brands);
+            res.locals.brands = _brands;
+            return next();
+        //    return res.status(200).send(brands = _brands);
         });
     };
 };

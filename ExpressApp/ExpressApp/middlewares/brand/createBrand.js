@@ -6,6 +6,7 @@ module.exports = function (obj) {
     const BrandModel = requireOption(obj, 'Brand');
 
     return function (req, res, next) {
+        
         if (  
             typeof req.body.brand === 'undefined' ||
             typeof req.body.brand.name === 'undefined'
@@ -22,7 +23,7 @@ module.exports = function (obj) {
                 if(err){
                     return next();
                 }           
-                return res.status(200).send({ brand: brand });
+                return res.redirect('/admin/brands');
             })
         });
     };

@@ -32,8 +32,8 @@
                       <th scope="row"><%= i + 1 %></td>
                       <td><%= brands[i].name %></td>
                       <td><%= brands[i].createDate %></td>
-                      <td><button class="btn btn-secondary">Rename</button></td>
-                      <td><button class="btn btn-danger">Remove</button></td>
+                      <td><button id="<%= brands[i].id %>" name="<%= brands[i].name %>"  class="btn btn-secondary" onclick="change(this)">Rename</button></td>
+                      <td><a href="/admin/brand/delete?id=<%= brands[i].id %>" class="btn btn-danger">Remove</a></td>
                     </tr>    
                    <% } %>    
               </tbody>
@@ -44,22 +44,47 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Create a new brand</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <form>
+              <form method="POST">
                   <div class="form-group">
                       <label for="exampleInputName">Brand name</label>
-                      <input type="email" class="form-control" id="exampleInputName" placeholder="Enter a name">
+                      <input type="text" required class="form-control" name="brand[name]" id="exampleInputName" placeholder="Enter a name">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Create</button>
                     </div>
               </form>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" onclick="create()">Create</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabe2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabe2">Rename brand</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="POST">
+                  <div class="form-group">
+                      <label for="renameInput">Brand name</label>
+                      <input type="text" required class="form-control" name="brand[name]" id="renameInput" placeholder="Enter a name">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" onclick="rename()" class="btn btn-primary">Create</button>
+                    </div>
+              </form>
             </div>
           </div>
         </div>
@@ -69,48 +94,32 @@
 </html>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
 <script>
-  function create(){
-    axios.post(
-      '/admin/brands', 
+  var paramId = null
+function change(param){
+  paramId = param.id
+  $('#exampleModa2').modal('show')
+  $('input[id="renameInput"]').val(param.name);
+}
+
+function rename(){
+  axios.put(
+      '/admin/brand', 
       {
         brand: 
         {
-          name: $("#exampleInputName").val(),
+          id: paramId,
+          newName: $('input[id="renameInput"]').val()
         }
       })
       .then(resp => {
-        var newRowContent =
-          `
-                  <tr id="${resp.data.brand._id}">
-                    <th scope="row">iii</td>
-                    <td>${resp.data.brand.name}</td>
-                    <td>${resp.data.brand.createDate}</td>
-                    <td><button class="btn btn-secondary">Rename</button></td>
-                    <td><button class="btn btn-danger">Remove</button></td>
-                  </tr>  
-          `;
-        $("#brandsTable tbody").append(newRowContent);  
+        location.reload();
     }).catch(error => {
-      console.log(error)
-    }) 
-  }
-  function rename(){
+        console.log(error)
+      }) 
+}
 
-  }
-  function remove(caller){
-    console.log(caller)
-    axios.delete(
-      '/admin/brands/' + id, 
-      )
-      .then(resp => {
-        $('#'+ index).remove();
-    }).catch(error => {
-      console.log(error)
-    }) 
-  }
-  $('.modal').on('hidden.bs.modal', function(){
-      $(this).find('form')[0].reset();
-  });
+$('.modal').on('hidden.bs.modal', function(){
+    $(this).find('form')[0].reset();
+});
 </script>
