@@ -17,6 +17,8 @@ const passwordResetPostMw = require('../middlewares/user/forgot/passwordresetPos
 const addressMw = require('../middlewares/user/address');
 
 const adminCustomersMw = require('../middlewares/user/adminCustomers');
+const adminCustomersPutMw = require('../middlewares/user/adminCustomerPut');
+const adminCustomersRemoveMw = require('../middlewares/user/adminCustomersRemove');
 const adminOrdersMw = require('../middlewares/order/adminOrder');
 
 const brandCreateMw = require('../middlewares/brand/createBrand');
@@ -35,6 +37,8 @@ const addressModifyMw = require('../middlewares/address/modifyAddress');
 const addressRemoveMw = require('../middlewares/address/removeAddress');
 const addressGetsMw = require('../middlewares/address/getAllAddress');
 const addressGetMw = require('../middlewares/address/getAddress');
+
+const ordersMw = require('../middlewares/order/getOrders');
 
 const User = require('../models/user');
 const Order = require('../models/order');
@@ -98,6 +102,7 @@ module.exports = function(app) {
 
     app.get('/orders', 
         authMw(obj),
+        ordersMw(obj),
         renderMw(obj, 'orders'));
 
     app.get('/user/setting', 
@@ -119,12 +124,22 @@ module.exports = function(app) {
         adminAuthMw(obj),
         adminOrdersMw(obj),
         renderMw(obj, 'adminOrders'));
-
+       
     app.get('/admin/customers', 
         authMw(obj),
         adminAuthMw(obj),
         adminCustomersMw(obj),
         renderMw(obj, 'adminCustomers'));
+
+    app.put('/admin/customers', 
+        authMw(obj),
+        adminAuthMw(obj),
+        adminCustomersPutMw(obj));
+
+    app.get('/admin/customers/delete?:id', 
+        authMw(obj),
+        adminAuthMw(obj),
+        adminCustomersRemoveMw(obj));
 
     app.get('/admin/brands', 
         authMw(obj),

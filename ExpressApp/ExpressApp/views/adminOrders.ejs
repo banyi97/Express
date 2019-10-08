@@ -30,9 +30,12 @@
                 <% for (var i = 0; i < orders.length; i++) { %>
                   <tr>
                     <th scope="row"><%= i + 1 %></td>
-                    <td><%= orders[i] %></td>
-                    <td><%= orders[i] %></td>
-                    <td><button class="btn btn-secondary">Rename</button></td>
+                    <td><%= orders[i].email %></td>
+                    <td><%= orders[i].id %></td>
+                    <td><%= orders[i].createDate %></td>
+                    <td><%= orders[i].state %></td>
+                    <td><button class="btn btn-secondary">View</button></td>
+                    <td><button class="btn btn-secondary">Change</button></td>
                     <td><button class="btn btn-danger">Remove</button></td>
                   </tr>    
                  <% } %>

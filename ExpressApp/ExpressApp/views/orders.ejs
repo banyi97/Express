@@ -12,6 +12,32 @@
 </head>
   <body>
     <% include navbar.ejs %>   
-   Orders
+    <div class="col-8">
+      <h3>Orders</h3>
+      <table class="table">
+          <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">OrderId</th>
+                <th scope="col">Date of order</th>
+                <th scope="col">State</th>
+                <th scope="col">View order</th>
+                <th scope="col">Remove order</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (var i = 0; i < orders.length; i++) { %>
+                <tr>
+                  <th scope="row"><%= i + 1 %></td>
+                  <td><%= orders[i].id %></td>
+                  <td><%= orders[i].createDate %></td>
+                  <td><%= orders[i].state %></td>
+                  <td><button class="btn btn-secondary">View</button></td>
+                  <td><button class="btn btn-danger">Remove</button></td>
+                </tr>    
+               <% } %>
+            </tbody>
+      </table>
+  </div>
   </body>
 </html>
