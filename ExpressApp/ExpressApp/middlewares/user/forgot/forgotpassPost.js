@@ -22,17 +22,17 @@ module.exports = function (obj) {
                     return next();              
                 }
                 else{
-                    sgMail.setApiKey('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');
+                    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
                     const msg = {
-                    to: user.email,
-                    from: 'test@example.com',
-                    templateId: 'd-480f0e7c53ac47a683792b4d283c6c04',
-                    dynamic_template_data: {
-                        subject: 'Forgot password',
-                        name: user.firstName,
-                        token: user.token
-                        },
-                    };
+                        to: user.email,
+                        from: 'test@example.com',
+                        templateId: 'd-480f0e7c53ac47a683792b4d283c6c04',
+                        dynamic_template_data: {
+                            subject: 'Forgot password',
+                            name: user.firstName,
+                            token: user.token
+                            },
+                        };
                     sgMail.send(msg);
                 }
             });
