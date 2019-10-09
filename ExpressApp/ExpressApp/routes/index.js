@@ -105,9 +105,26 @@ module.exports = function(app) {
         ordersMw(obj),
         renderMw(obj, 'orders'));
 
-    app.get('/user/setting', 
+    app.get('/user/setting/account', 
         authMw(obj),
-        renderMw(obj, 'setting'));
+        renderMw(obj, 'setting_account'));
+
+    app.get('/user/setting/address', 
+        authMw(obj),
+        addressMw(obj),
+        renderMw(obj, 'setting_address'));
+
+    app.get('/user/setting/chancepassword', 
+        authMw(obj),
+        renderMw(obj, 'setting_changePass'));
+
+    app.get('/user/setting/edit', 
+        authMw(obj),
+        renderMw(obj, 'setting_edit'));
+
+    app.get('/user/setting/remove', 
+        authMw(obj),
+        renderMw(obj, 'setting_remove'));
 
     app.post('/user/setting/address/modify', 
         authMw(obj),
