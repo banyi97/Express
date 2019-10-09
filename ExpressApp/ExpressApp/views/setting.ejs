@@ -1,9 +1,29 @@
 <div class="col-2">
   <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-    <a class="nav-link" href="/user/setting/account">Account</a>
-    <a class="nav-link" href="/user/setting/address">Address</a>
-    <a class="nav-link" href="/user/setting/edit">Edit profile</a>
-    <a class="nav-link" href="/user/setting/chancepassword">Change password</a>
-    <a class="nav-link" href="/user/setting/remove">Remove profile</a>
+    <a class="nav-link" id="acc" href="/user/setting/account">Account</a>
+    <a class="nav-link" id="addr" href="/user/setting/address">Address</a>
+    <a class="nav-link" id="edit" href="/user/setting/edit">Edit profile</a>
+    <a class="nav-link" id="pass" href="/user/setting/chancepassword">Change password</a>
+    <a class="nav-link" id="rem" href="/user/setting/remove">Remove profile</a>
   </div>
 </div>
+<script>
+window.onload = function() {
+  var url = window.location.href;
+    if(url.endsWith('account')){
+      $('#acc').addClass('active');
+    }
+    if(url.endsWith('address')){
+      $('#addr').addClass('active');
+    }
+    if(url.endsWith('edit')){
+      $('#edit').addClass('active');
+    }
+    if(url.endsWith('chancepassword')){
+      $('#pass').addClass('active');
+    }
+    if(url.endsWith('remove')){
+      $('#rem').addClass('active');
+    }
+};
+</script>
