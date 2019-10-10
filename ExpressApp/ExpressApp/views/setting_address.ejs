@@ -19,7 +19,15 @@
                     Add new address
                   </button>
               <ul class="list-group">
-                
+                <% if (address) { %>
+                  <% address.forEach(addr => { %>
+                    <li class="list-group-item">
+                      <div class="row">
+                        
+                      </div>
+                    </li>
+                  <% }); %>
+                <% } %>
               </ul>
               <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
