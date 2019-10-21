@@ -1,6 +1,7 @@
 const renderMw = require('../middlewares/generic/render');
 const errorHandlerMw = require('../middlewares/generic/errorHandler');
 const getHTMLmw = require('../middlewares/generic/getHTMLfiles');
+const cartMw = require('../middlewares/generic/cart');
 
 const authMw = require('../middlewares/generic/auth');
 const noAuthMw = require('../middlewares/generic/noAuth');
@@ -56,7 +57,6 @@ module.exports = function(app) {
     };
 
     app.get('/', 
-    //    getHTMLmw(__dirname ,'index.html'),
         noAuthMw(obj),
         renderMw(obj, 'index'));
 
@@ -105,6 +105,11 @@ module.exports = function(app) {
         ordersMw(obj),
         renderMw(obj, 'orders'));
 
+    app.get('/cart', 
+        noAuthMw(obj),
+        cartMw(obj),
+        renderMw(obj, 'cart'));
+
     app.get('/user/setting/account', 
         authMw(obj),
         renderMw(obj, 'setting_account'));
@@ -135,7 +140,23 @@ module.exports = function(app) {
         authMw(obj),
         adminAuthMw(obj),
         brandGetsMw(obj),
+        productGetsMw(obj),
         renderMw(obj, 'adminProducts'));
+
+    app.post('/admin/products', 
+        authMw(obj),
+        adminAuthMw(obj),
+        productCreateMw(obj));
+
+    app.put('/admin/products/:id',
+        authMw(obj),
+        adminAuthMw(obj),
+        productModifyMw(obj));
+
+    app.get('/admin/products/delete?:id', 
+        authMw(obj),
+        adminAuthMw(obj),
+        productRemoveMw(obj));
     
     app.get('/admin/orders', 
         authMw(obj),
@@ -194,21 +215,6 @@ module.exports = function(app) {
         noAuthMw(obj),
         productGetMw(obj),
         renderMw(obj, 'prodPage'));
-
-    app.post('/admin/products',
-        authMw(obj),
-        adminAuthMw(obj),
-        productCreateMw(obj));
-
-    app.put('/admin/products/:id',
-        authMw(obj),
-        adminAuthMw(obj),
-        productModifyMw(obj));
-
-    app.delete('/admin/products/:id',
-        authMw(obj),
-        adminAuthMw(obj),
-        productRemoveMw(obj));
 
     app.post('/changePassword',
         authMw(obj),

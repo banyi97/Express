@@ -13,13 +13,25 @@
           <ul class="navbar-nav mr-5 mt-2 mt-lg-0">
                 <% if (!user) { %>
                   <li class="nav-item">
+                    <a class="nav-link" href="/cart">
+                      <img src="/images/cart.png" height="25" width="25" alt="cart">
+                      Cart
+                    </a>
+                  </li> 
+                  <li class="nav-item">
                       <a class="nav-link" href="/register">Register</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="/login">Login</a>
                     </li>                   
-                <% } %>                           
+                <% } %>                                      
                 <% if (user) { %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/cart">
+                      <img src="/images/cart.png" height="25" width="25" alt="cart">
+                      Cart
+                    </a>
+                  </li> 
                   <% if (user.permission === "admin") { %>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

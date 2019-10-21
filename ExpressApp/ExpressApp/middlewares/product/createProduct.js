@@ -4,15 +4,35 @@ const requireOption = require('../requireOption');
  
 module.exports = function (obj) {
     const ProductModel = requireOption(obj, 'Product');
+    const BrandModel = requireOption(obj, 'Brand');
 
     return function (req, res, next) {       
-        ProductModel.find({name: req.body.product.name}).exec((err, prod) => {
-            if(err){
+        console.log(req.body.product)
+        if (  
+            typeof req.body.product === 'undefined' ||
+            typeof req.body.product.name === 'undefined' ||
+            typeof req.body.product.price === 'undefined' ||
+            typeof req.body.product.quantity === 'undefined' 
+        //    typeof req.body.product.brand === 'undefined' ||
+        //    typeof req.body.product.name === 'undefined'
+            ){
+            return next();
+        }
+        ProductModel.findOne({ name: req.body.product.name }).exec((err, _prod) => {
+            if(err || _prod){
                 return next();
             }
-            
-            return next();
-        //    return res.status(200).send(brands = _brands);
+            BrandModel.findOne({_id: req.body.product.brand}).exec((err, brand) => {
+                var product = new ProductModel(req.body.product);
+                product.createDate = new Date();
+                product.brand = brand;
+                product.save(err => {
+                    if(err){
+                        return next();
+                    }           
+                    return res.redirect('/admin/products');
+                })
+            })
         });
     };
 };

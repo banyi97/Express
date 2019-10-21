@@ -14,7 +14,37 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
           Add new product
         </button>
-          
+        <div class="col-12">
+          <h3>Products</h3>
+          <table class="table" id="productTable">
+              <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Create date</th>
+                    <th scope="col">Modify</th>
+                    <th scope="col">Remove</th>
+                  </tr>
+                </thead>
+                <tbody>       
+                    <% for (var i = 0; i < products.length; i++) { %>
+                      <tr>
+                        <th scope="row"><%= i + 1 %></td>
+                        <td><%= products[i].name %></td>
+                        <td><%= products[i].brand %></td>
+                        <td><%= products[i].price %></td>
+                        <td><%= products[i].quantity %></td>
+                        <td><%= products[i].createDate %></td>
+                        <td><button id="<%= brands[i].id %>" name="<%= brands[i].name %>"  class="btn btn-secondary" onclick="change(this)">Rename</button></td>
+                        <td><a href="/admin/product/delete?id=<%= brands[i].id %>" class="btn btn-danger">Remove</a></td>
+                      </tr>    
+                     <% } %>    
+                </tbody>
+          </table>
+      </div>
           <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -29,11 +59,11 @@
                         <form method="POST">
                             <div class="form-group">
                               <label for="exampleInputName">Name</label>
-                              <input required type="text" class="form-control" id="exampleInputName" placeholder="Enter a name">
+                              <input required type="text" name="product[name]" class="form-control" id="exampleInputName" placeholder="Enter a name">
                             </div>                    
                               <div class="form-group">
                                   <label for="exampleFormControlSelect2">Brand of headphone</label>
-                                  <select required class="form-control" id="exampleFormControlSelect2">
+                                  <select required class="form-control" name="product[brand]"  id="exampleFormControlSelect2">
                                       <option value="">Select a brand</option>
                                       <% if (brands) { %>
                                         <% brands.forEach(brand => { %>
@@ -44,15 +74,15 @@
                                 </div>
                             <div class="form-group">
                               <label for="exampleInputPrice">Price</label>
-                              <input required type="number" value="0" min="0" class="form-control" id="exampleInputPrice" placeholder="Price">
+                              <input required type="number" name="product[price]" value="0" min="0" class="form-control" id="exampleInputPrice" placeholder="Price">
                             </div> 
                             <div class="form-group">
                                 <label for="exampleInputQuantity">Quantity</label>
-                                <input required type="number" value="0" min="0" class="form-control" id="exampleInputQuantity" placeholder="Quantity">
+                                <input required type="number" name="product[quantity]" value="0" min="0" class="form-control" id="exampleInputQuantity" placeholder="Quantity">
                               </div>
                               <div class="form-group">
                                   <label for="exampleFormControlSelect2">Type of headphone</label>
-                                  <select required class="form-control" id="exampleFormControlSelect2">
+                                  <select name="product[type]" required class="form-control" id="exampleFormControlSelect2">
                                       <option value="">Select a type</option>
                                       <option value="1">Open</option>
                                       <option value="2">Closed</option>
@@ -60,7 +90,7 @@
                                   </select>
                                 </div>
                                 <div class="custom-file">
-                                    <input required type="file" accept="image/*" class="custom-file-input" id="customFile">
+                                    <input required type="file" name="product[pic]" accept="image/*" class="custom-file-input" id="customFile">
                                     <label class="custom-file-label" for="customFile">Choose image</label>
                                   </div>
                             <div class="modal-footer">
