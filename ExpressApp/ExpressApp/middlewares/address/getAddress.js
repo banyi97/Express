@@ -1,14 +1,13 @@
 const requireOption = require('../requireOption');
 
- // If the user is not logged in, redirects to login page/
- 
+// Visszaadja a kert id-ju address-t, ha nem letezik null-t ad vissza
 module.exports = function (obj) {
     const AddressModel = requireOption(obj, 'Address');
 
     return function (req, res, next) {       
         AddressModel.find({_id: id}).exec((err, _address) => {
             if(err){
-                return next();
+                return res.render('404', {error: "Id not found"})
             }
             res.locals.address = _address;
             return next();

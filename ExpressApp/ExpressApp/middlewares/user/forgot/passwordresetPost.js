@@ -1,7 +1,7 @@
 const requireOption = require('../../requireOption');
 const bcrypt = require('bcrypt');
- // If the user is not logged in, redirects to login page/
- 
+
+// Reseteli jelszot es ujat allit be a megkapott adatok alapjan
 module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 
@@ -19,7 +19,7 @@ module.exports = function (obj) {
             if(!user) {
                 return res.status(400).send({ message: "The username does not exist" });
             }
-            if(user.tonen === null){
+            if(user.token === null){
                 return next();
             }
             if(user.token !== req.body.user.hash){

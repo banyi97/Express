@@ -1,7 +1,6 @@
 const requireOption = require('../requireOption');
 
- // If the user is not logged in, redirects to login page/
- 
+// Visszadja az adott rendeles adatait
 module.exports = function (obj) {
     const OrderModel = requireOption(obj, 'Order');
 

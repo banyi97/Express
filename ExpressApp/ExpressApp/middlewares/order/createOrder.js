@@ -1,7 +1,6 @@
 const requireOption = require('../requireOption');
 
- // If the user is not logged in, redirects to login page/
- 
+ // Letrehozza a rendelest
 module.exports = function (obj) {
     const OrderModel = requireOption(obj, 'Order');
 

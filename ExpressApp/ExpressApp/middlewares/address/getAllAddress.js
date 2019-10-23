@@ -1,7 +1,6 @@
 const requireOption = require('../requireOption');
 
- // If the user is not logged in, redirects to login page/
- 
+ // Visszaadja a user-hez tartozo osszes address-t
 module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 

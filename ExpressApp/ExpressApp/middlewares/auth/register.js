@@ -2,8 +2,7 @@ const requireOption = require('../requireOption');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 
- // If the user is not logged in, redirects to login page/
- 
+// A megadott adatok alapjan letrehoz egy uj user jogu felhasznalot - ha mar hasznalt a mail cim akkor visszavisz a register page-re
 module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 

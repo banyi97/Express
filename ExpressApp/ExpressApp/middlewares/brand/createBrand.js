@@ -1,7 +1,6 @@
 const requireOption = require('../requireOption');
 
- // If the user is not logged in, redirects to login page/
- 
+ // A megkapott adatokbol letrehoz egy uj brand-et... duplikacio megengedett
 module.exports = function (obj) {
     const BrandModel = requireOption(obj, 'Brand');
 
@@ -11,10 +10,10 @@ module.exports = function (obj) {
             typeof req.body.brand === 'undefined' ||
             typeof req.body.brand.name === 'undefined'
             ){
-            return next();
+                return res.render('400', {error: ""})
         }
         BrandModel.findOne({ name: req.body.brand.name }).exec((err, _brand) => {
-            if(err || _brand){
+            if(err){
                 return next();
             }
             var brand = new BrandModel(req.body.brand);

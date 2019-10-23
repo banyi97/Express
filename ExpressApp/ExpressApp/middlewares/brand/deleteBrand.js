@@ -1,13 +1,12 @@
 const requireOption = require('../requireOption');
 
- // If the user is not logged in, redirects to login page/
- 
+// Torli az adott id-ju brand-et
 module.exports = function (obj) {
     const BrandModel = requireOption(obj, 'Brand');
 
     return function (req, res, next) {
         if ( typeof req.query.id === 'undefined' ){
-            return next();
+            return res.render('400', {error: ""})
         }
         BrandModel.findOne({_id: req.query.id}).exec((err, brand) => {
             brand.remove(err => {

@@ -6,6 +6,7 @@ const saltRounds = 10;
 module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 
+    // A megkapott adatok alapjan bejelentkezteti a usert - hiba eseten visszavisz a login page-re
     return function (req, res, next) {
         if (  
             typeof req.body.user === 'undefined' ||

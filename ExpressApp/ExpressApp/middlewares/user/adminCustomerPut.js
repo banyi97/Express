@@ -1,5 +1,6 @@
 const requireOption = require('../requireOption');
  
+// User permission modositasa
 module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 

@@ -1,7 +1,8 @@
 const requireOption = require('../../requireOption');
 const sgMail = require('@sendgrid/mail');
 const nanoid = require('nanoid')
- // If the user is not logged in, redirects to login page/
+
+// Fogadja a form adatait es ha letezik az user elkuldi az emailt
 module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 
@@ -14,7 +15,7 @@ module.exports = function (obj) {
         }
         UserModel.findOne({ email: req.body.user.email }).exec((err, user) => {
             if(!user) {
-                return res.status(200).send("user is not found"); //error, but no send valid data for to the client
+                return res.status(200).send(""); //error, but no send valid data for to the client
             }
             user.token = nanoid();
             user.save((err) => {

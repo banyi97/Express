@@ -1,7 +1,6 @@
 const requireOption = require('../requireOption');
 
- // If the user is not logged in, redirects to login page/
- 
+ // Modositja az address adatait, ha nem letezik errort ad vissza
 module.exports = function (obj) {
     const AddressModel = requireOption(obj, 'Address');
 
@@ -13,7 +12,7 @@ module.exports = function (obj) {
             typeof req.body.address.state === 'undefined' ||
             typeof req.body.address.zip === 'undefined'
             ){
-            return next();
+                return res.render('400', {error: ""})
         }  
         AddressModel.findOne({ _id: req.body.brand._id }).exec((err, address) => {
             if(err){

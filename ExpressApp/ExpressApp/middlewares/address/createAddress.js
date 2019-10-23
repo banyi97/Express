@@ -1,6 +1,6 @@
 const requireOption = require('../requireOption');
 
-// 
+// Letrehozza megkapott adatokbol a cimet és hozzaadja az adott user-hez
 module.exports = function (obj) {
     const AddressModel = requireOption(obj, 'Address');
 
@@ -12,7 +12,7 @@ module.exports = function (obj) {
             typeof req.body.address.state === 'undefined' ||
             typeof req.body.address.zip === 'undefined'
             ){
-            return next();
+                return res.render('400', {error: ""})
         }
         var address = new AddressModel(req.body.address);
             address.user = req.session.userid;

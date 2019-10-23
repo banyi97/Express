@@ -1,7 +1,7 @@
 const requireOption = require('../../requireOption');
 const sgMail = require('@sendgrid/mail');
 
- // If the user is not logged in, redirects to login page/
+// Tovabbit az oldalra
 module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 

@@ -1,6 +1,6 @@
 const renderMw = require('../middlewares/generic/render');
 const errorHandlerMw = require('../middlewares/generic/errorHandler');
-const cartMw = require('../middlewares/generic/cart');
+//const cartMw = require('../middlewares/generic/cart');
 
 const authMw = require('../middlewares/generic/auth');
 const noAuthMw = require('../middlewares/generic/noAuth');

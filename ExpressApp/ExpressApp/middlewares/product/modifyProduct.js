@@ -1,7 +1,6 @@
 const requireOption = require('../requireOption');
 
- // If the user is not logged in, redirects to login page/
- 
+// Modositja a kapott id-ju termeket a kapott adatokkal
 module.exports = function (obj) {
     const ProductModel = requireOption(obj, 'Product');
 
@@ -18,6 +17,9 @@ module.exports = function (obj) {
                     }
                     return res.status(200).send(prod);
                 })
+            }
+            else{
+                return res.render('404', {error: ""})
             }
         });
     };

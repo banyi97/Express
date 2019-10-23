@@ -1,7 +1,6 @@
 const requireOption = require('../requireOption');
 
- // If the user is not logged in, redirects to login page/
- 
+ // Visszaadja az user adatokat ha bejelentkezett, illetve null-t ad vissza ha nem - ejs need this only
 module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 

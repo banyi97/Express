@@ -1,5 +1,6 @@
 const requireOption = require('../requireOption');
  
+// Visszaadja az osszes user-t
 module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 

@@ -1,6 +1,6 @@
 const requireOption = require('../../requireOption');
- // If the user is not logged in, redirects to login page/
  
+// Az emailben kapott adatokkal tovabbit az oldalra
 module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 
@@ -12,8 +12,6 @@ module.exports = function (obj) {
             return res.redirect('/forgot');
         }
         UserModel.findOne({ token: req.query.token }).exec((err, user) => {
-            console.log(req.query.token)
-            console.log(user)
             if(!user) {
                 return res.status(400).send({ message: "Not a valid token" });
             }
