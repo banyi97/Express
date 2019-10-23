@@ -4,11 +4,12 @@ const requireOption = require('../requireOption');
 module.exports = function (obj) {
     return function (req, res, next) {     
         if (typeof req.session.cart === 'undefined') {     
-            res.locals.cart = null;
+            req.session.cart = {id: res.body.item.id, quant: res.body.item.quant}; // test data
             return next();
         }
         else{
-            res.locals.cart = req.session.cart;
+            res.locals.cart.push({id: res.body.item.id, quant: res.body.item.quant})
+            return next();
         }
     };
 };

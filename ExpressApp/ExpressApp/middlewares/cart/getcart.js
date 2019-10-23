@@ -9,6 +9,7 @@ module.exports = function (obj) {
         }
         else{
             res.locals.cart = req.session.cart;
+            return next();
         }
     };
 };

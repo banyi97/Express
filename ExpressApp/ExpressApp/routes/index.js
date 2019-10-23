@@ -1,6 +1,5 @@
 const renderMw = require('../middlewares/generic/render');
 const errorHandlerMw = require('../middlewares/generic/errorHandler');
-//const cartMw = require('../middlewares/generic/cart');
 
 const authMw = require('../middlewares/generic/auth');
 const noAuthMw = require('../middlewares/generic/noAuth');
@@ -14,7 +13,6 @@ const forgotPasswordMw = require('../middlewares/user/forgot/forgotpass');
 const forgotPasswordPOSTMw = require('../middlewares/user/forgot/forgotpassPost');
 const passwordResetMw = require('../middlewares/user/forgot/passwordreset');
 const passwordResetPostMw = require('../middlewares/user/forgot/passwordresetPost');
-const addressMw = require('../middlewares/user/address');
 
 const adminCustomersMw = require('../middlewares/user/adminCustomers');
 const adminCustomersPutMw = require('../middlewares/user/adminCustomerPut');
@@ -39,6 +37,7 @@ const addressGetsMw = require('../middlewares/address/getAllAddress');
 const addressGetMw = require('../middlewares/address/getAddress');
 
 const addToCardMw = require('../middlewares/cart/addcart');
+const getCartMw = require('../middlewares/cart/getcart');
 
 const ordersMw = require('../middlewares/order/getOrders');
 
@@ -108,7 +107,7 @@ module.exports = function(app) {
 
     app.get('/cart', 
         noAuthMw(obj),
-        cartMw(obj),
+        getCartMw(obj),
         renderMw(obj, 'cart'));
 
     app.get('/addtocart/?id',
@@ -121,7 +120,7 @@ module.exports = function(app) {
 
     app.get('/user/setting/address', 
         authMw(obj),
-        addressMw(obj),
+        addressGetsMw(obj),
         renderMw(obj, 'setting_address'));
 
     app.get('/user/setting/chancepassword', 
@@ -138,7 +137,6 @@ module.exports = function(app) {
 
     app.post('/user/setting/address/modify', 
         authMw(obj),
-        addressMw(obj),
         renderMw(obj, 'setting'));
     
     app.get('/admin/products', 
@@ -235,7 +233,7 @@ module.exports = function(app) {
 
     app.post('/address',
         authMw(obj),
-        addressMw(obj),
+    //    addressMw(obj),
         addressCreateMw(obj));
 
     app.put('/address/:id',
