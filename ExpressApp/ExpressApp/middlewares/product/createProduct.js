@@ -19,13 +19,13 @@ module.exports = function (obj) {
             return next();
         }
         ProductModel.findOne({ name: req.body.product.name }).exec((err, _prod) => {
-            if(err || _prod){
+            if(err){
                 return next();
             }
             BrandModel.findOne({_id: req.body.product.brand}).exec((err, brand) => {
                 var product = new ProductModel(req.body.product);
                 product.createDate = new Date();
-                product.brand = brand;
+                product._brand = brand._id;
                 product.save(err => {
                     if(err){
                         return next();

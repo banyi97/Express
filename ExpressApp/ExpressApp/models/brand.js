@@ -3,11 +3,9 @@ const db = require('../database/db')
 
 const Brand = db.model('Brand', {
     name: String,
-    product: {
-        type: Schema.Types.ObjectId,
-        ref: 'Product'
-    },
-    createDate: Date
+    createDate: Date,
+    updated: { type: Date, default: Date.now },
+
 });
 
 module.exports = Brand;

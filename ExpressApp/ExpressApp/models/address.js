@@ -7,6 +7,7 @@ const Address = db.model('Address', {
     state: String,
     zip: String,
     createDate: Date,
+    updated: { type: Date, default: Date.now },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'

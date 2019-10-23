@@ -10,7 +10,7 @@ module.exports = function (obj) {
             if(err){
                 return next();
             }
-            res.locals.products = prods;
+            res.locals.products = prods;        
             return next();
         //    return res.status(200).send(brands = _brands);
         });

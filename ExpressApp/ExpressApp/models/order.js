@@ -6,7 +6,13 @@ const Order = db.model('Orders', {
     cim: String,
     tel: String,
     createDate: Date,
-    state: String
+    updated: { type: Date, default: Date.now },
+
+    state: String,
+    _user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
 });
 
 module.exports = Order;

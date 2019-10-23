@@ -6,6 +6,8 @@ const Address = db.model('Address', {
     cim: String,
     tel: String,
     createDate: Date,
+    updated: { type: Date, default: Date.now },
+
 });
 
 module.exports = Address;

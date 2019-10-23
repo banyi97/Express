@@ -1,6 +1,5 @@
 const renderMw = require('../middlewares/generic/render');
 const errorHandlerMw = require('../middlewares/generic/errorHandler');
-const getHTMLmw = require('../middlewares/generic/getHTMLfiles');
 const cartMw = require('../middlewares/generic/cart');
 
 const authMw = require('../middlewares/generic/auth');
@@ -38,6 +37,8 @@ const addressModifyMw = require('../middlewares/address/modifyAddress');
 const addressRemoveMw = require('../middlewares/address/removeAddress');
 const addressGetsMw = require('../middlewares/address/getAllAddress');
 const addressGetMw = require('../middlewares/address/getAddress');
+
+const addToCardMw = require('../middlewares/cart/addcart');
 
 const ordersMw = require('../middlewares/order/getOrders');
 
@@ -109,6 +110,10 @@ module.exports = function(app) {
         noAuthMw(obj),
         cartMw(obj),
         renderMw(obj, 'cart'));
+
+    app.get('/addtocart/?id',
+        noAuthMw(obj),
+        addToCardMw(obj));
 
     app.get('/user/setting/account', 
         authMw(obj),
@@ -211,7 +216,7 @@ module.exports = function(app) {
         productGetsMw(obj),
         renderMw(obj, 'products'));
 
-    app.get('/product/?:id', 
+    app.get('/product?:id', 
         noAuthMw(obj),
         productGetMw(obj),
         renderMw(obj, 'prodPage'));

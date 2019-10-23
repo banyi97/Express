@@ -7,12 +7,10 @@ const User = db.model('Users', {
     firstName: String,
     lastName: String,
     permission: String,
-    _orders: {
-        type: Schema.Types.ObjectId,
-        ref: 'Order'
-    },
     token: String,
     createDate: Date,
+    updated: { type: Date, default: Date.now },
+
 });
 
 module.exports = User;
