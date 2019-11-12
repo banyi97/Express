@@ -1,7 +1,7 @@
 const Schema = require('mongoose').Schema;
 const db = require('../database/db')
 
-const Product = db.model('Products', {
+const Product = db.model('Product', {
     name: String,
     price: String,
     quantity: String,
@@ -10,7 +10,7 @@ const Product = db.model('Products', {
     createDate: Date,
     updated: { type: Date, default: Date.now },
 
-    _brand: {
+    _brandId: {
         type: Schema.Types.ObjectId,
         ref: 'Brand'
     },

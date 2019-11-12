@@ -8,7 +8,8 @@ const Address = db.model('Address', {
     zip: String,
     createDate: Date,
     updated: { type: Date, default: Date.now },
-    user: {
+    
+    _userId: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
