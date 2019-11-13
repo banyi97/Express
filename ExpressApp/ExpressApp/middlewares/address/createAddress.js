@@ -15,7 +15,7 @@ module.exports = function (obj) {
                 return res.render('400', {error: ""})
         }
         var address = new AddressModel(req.body.address);
-            address.user = req.session.userid;
+            address._userId = req.session.userid;
             address.createDate = new Date();
             address.save(err => {
             if(err){

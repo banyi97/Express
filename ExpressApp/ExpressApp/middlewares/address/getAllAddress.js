@@ -5,7 +5,7 @@ module.exports = function (obj) {
     const UserModel = requireOption(obj, 'User');
 
     return function (req, res, next) {       
-        UserModel.find({_id: req.session.userid}).exec((err, user) => {
+        UserModel.find({_userId: req.session.userid}).exec((err, user) => {
             if(err){
                 return next();
             }

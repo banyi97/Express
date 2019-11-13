@@ -26,7 +26,6 @@ module.exports = function (obj) {
         }
         UserModel.findOne({ email: req.body.user.email }).exec((err, _user) => {
             if(_user){
-                console.log(_user)
                 res.locals.errors = {email : "This email address is already used"};
                 return next();
             }

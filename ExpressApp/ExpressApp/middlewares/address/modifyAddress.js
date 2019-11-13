@@ -14,7 +14,7 @@ module.exports = function (obj) {
             ){
                 return res.render('400', {error: ""})
         }  
-        AddressModel.findOne({ _id: req.body.brand._id }).exec((err, address) => {
+        AddressModel.findOne({ _id: req.body.address._id }).exec((err, address) => {
             if(err){
                 return next();
             }
@@ -27,7 +27,7 @@ module.exports = function (obj) {
                     if(err){
                         return next();
                     }
-                    return res.status(200).send(brand);
+                    return res.status(200).send(address);
                 })
             }
         });
