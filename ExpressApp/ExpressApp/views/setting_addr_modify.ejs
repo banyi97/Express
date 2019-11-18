@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Express</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </head>
+  <body>
+      <% include navbar.ejs %>  
+      <div class="row">
+            <% include setting.ejs %>  
+            <div class="col-10">
+                <% if (address) { %>      
+                    <form method="POST" action="/address/modify"> 
+                        <div class="form-row">
+                            <input hidden name="address[id]" value="<%=address[0].id%>">
+                            <div class="form-group col-md-6">
+                              <label for="inputFirstName">First Name</label>
+                              <input type="text" required class="form-control" id="inputFirstName" name="address[firstName]" value="<%=address[0].firstName%>" placeholder="First Name">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputLastName">Last Name</label>
+                              <input type="text" required class="form-control" id="inputLastName" name="address[lastName]" value="<%=address[0].lastName%>" placeholder="Last Name">
+                            </div>
+                          </div>                     
+                          <div class="form-group">
+                            <label for="inputAddress">Address</label>
+                            <input type="text" required class="form-control" id="inputAddress" name="address[address]" value="<%=address[0].address%>" placeholder="1234 Main St">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputAddress2">Address 2</label>
+                            <input type="text" class="form-control" id="inputAddress2" name="address[address2]" value="<%=address[0].address2%>" placeholder="Apartment, studio, or floor">
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputCity">City</label>
+                              <input type="text" required class="form-control" value="<%=address[0].city%>" name="address[city]" id="inputCity">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputState">State</label>
+                              <select value="<%=address[0].state%>" name="address[state]" required id="inputState" class="form-control">
+                                <option value="" selected>Choose...</option>
+                                <option value="Budapest">Budapest</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label for="inputZip">Zip</label>
+                              <input type="text" required class="form-control" name="address[zip]" value="<%=address[0].zip%>" id="inputZip">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                              <a href="/user/setting/address" class="btn btn-secondary">Cancel</a>
+                              <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                    </form>       
+                <% } %>         
+            </div>
+      </div>
+  </body>
+</html>

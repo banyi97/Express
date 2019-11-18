@@ -4,9 +4,12 @@ const requireOption = require('../requireOption');
 module.exports = function (obj) {
     const AddressModel = requireOption(obj, 'Address');
 
-    return function (req, res, next) {     
+    return function (req, res, next) {
+        console.log("Body")
+        console.log(req.body.address)     
         if (  
             typeof req.body.address === 'undefined' ||
+            typeof req.body.address.id === 'undefined' ||
             typeof req.body.address.address === 'undefined' ||
             typeof req.body.address.city === 'undefined' ||
             typeof req.body.address.state === 'undefined' ||
@@ -14,12 +17,15 @@ module.exports = function (obj) {
             ){
                 return res.render('400', {error: ""})
         }  
-        AddressModel.findOne({ _id: req.body.address._id }).exec((err, address) => {
-            if(err){
-                return next();
+        AddressModel.findOne({ _id: req.body.address.id }).exec((err, address) => {
+            if(err || !address){
+                return res.render('404', {error: ""})
             }
             if(address){
+                address.firstName = req.body.address.firstName;
+                address.lastName = req.body.address.lastName;
                 address.address = req.body.address.address;
+                address.address2 = req.body.address.address2;
                 address.city = req.body.address.city;
                 address.state = req.body.address.state;
                 address.zip = req.body.address.zip;
@@ -27,7 +33,7 @@ module.exports = function (obj) {
                     if(err){
                         return next();
                     }
-                    return res.status(200).send(address);
+                    return res.redirect('/user/setting/address');
                 })
             }
         });

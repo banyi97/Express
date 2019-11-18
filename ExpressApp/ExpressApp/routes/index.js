@@ -140,6 +140,10 @@ module.exports = function(app) {
     app.post('/user/setting/address/modify', 
         authMw(obj),
         renderMw(obj, 'setting'));
+
+    app.get('/user/setting/address/delete?:id', 
+        authMw(obj),
+        addressRemoveMw(obj));
     
     app.get('/admin/products', 
         authMw(obj),
@@ -229,22 +233,18 @@ module.exports = function(app) {
         authMw(obj),
         addressGetsMw(obj));
 
-    app.get('/address/:id', 
+    app.get('/address?:id', 
         authMw(obj),
-        addressGetMw(obj));
+        addressGetMw(obj),
+        renderMw(obj, 'setting_addr_modify'));
 
-    app.post('/address',
-        authMw(obj),
-    //    addressMw(obj),
-        addressCreateMw(obj));
-
-    app.put('/address/:id',
+    app.post('/address/modify', 
         authMw(obj),
         addressModifyMw(obj));
 
-    app.delete('/address/:id',
+    app.post('/address',
         authMw(obj),
-        addressRemoveMw(obj));
+        addressCreateMw(obj));
 
     app.post('/changeEmail',
         authMw(obj),

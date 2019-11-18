@@ -7,6 +7,8 @@ module.exports = function (obj) {
     return function (req, res, next) {
         if (  
             typeof req.body.address === 'undefined' ||
+            typeof req.body.address.firstName === 'undefined' ||
+            typeof req.body.address.lastName === 'undefined' ||
             typeof req.body.address.address === 'undefined' ||
             typeof req.body.address.city === 'undefined' ||
             typeof req.body.address.state === 'undefined' ||

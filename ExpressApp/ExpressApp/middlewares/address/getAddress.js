@@ -4,14 +4,17 @@ const requireOption = require('../requireOption');
 module.exports = function (obj) {
     const AddressModel = requireOption(obj, 'Address');
 
-    return function (req, res, next) {       
-        AddressModel.find({_id: id}).exec((err, _address) => {
+    return function (req, res, next) { 
+        if ( typeof req.query.id === 'undefined' ){
+            return res.render('400', {error: ""})
+        }      
+        AddressModel.find({_id: req.query.id}).exec((err, _address) => {
             if(err){
                 return res.render('404', {error: "Id not found"})
             }
             res.locals.address = _address;
+            console.log(_address)
             return next();
-        //    return res.status(200).send(brands = _brands);
         });
     };
 };
