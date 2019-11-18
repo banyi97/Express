@@ -9,6 +9,8 @@ const loginMw = require('../middlewares/auth/login');
 const registerMw = require('../middlewares/auth/register');
 const logoutMw = require('../middlewares/generic/logout');
 const changePasswordMw = require('../middlewares/user/changePassword');
+const changeEmailMw = require('../middlewares/user/changeEmail');
+const removeUserMw = require('../middlewares/user/removeUser');
 const forgotPasswordMw = require('../middlewares/user/forgot/forgotpass');
 const forgotPasswordPOSTMw = require('../middlewares/user/forgot/forgotpassPost');
 const passwordResetMw = require('../middlewares/user/forgot/passwordreset');
@@ -243,4 +245,12 @@ module.exports = function(app) {
     app.delete('/address/:id',
         authMw(obj),
         addressRemoveMw(obj));
+
+    app.post('/changeEmail',
+        authMw(obj),
+        changeEmailMw(obj));
+
+    app.post('/user/setting/removeUser',
+        authMw(obj),
+        removeUserMw(obj));
 };

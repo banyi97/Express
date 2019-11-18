@@ -18,10 +18,10 @@ module.exports = function (obj) {
             address._userId = req.session.userid;
             address.createDate = new Date();
             address.save(err => {
-            if(err){
-                return next();
-            }           
-            return res.status(200).send({ address: address });
+                if(err){
+                    return next();
+                }           
+                return res.redirect('/user/setting/address');
             })
     };
 };
