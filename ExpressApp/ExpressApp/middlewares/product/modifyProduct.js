@@ -4,21 +4,36 @@ const requireOption = require('../requireOption');
 module.exports = function (obj) {
     const ProductModel = requireOption(obj, 'Product');
 
-    return function (req, res, next) {       
-        ProductModel.find({_id: req.body.product.id}).exec((err, prod) => {
+    return function (req, res, next) {     
+        console.log("Call")
+        if (  
+            typeof req.body.product === 'undefined' ||
+            typeof req.body.product.id === 'undefined' ||
+            typeof req.body.product.name === 'undefined' ||
+            typeof req.body.product.price === 'undefined' ||
+            typeof req.body.product.quantity === 'undefined' ||
+            typeof req.body.product.brandId === 'undefined' ||
+            typeof req.body.product.type === 'undefined'
+            ){
+                return res.render('400', {error: ""})
+        }  
+        ProductModel.findOne({_id: req.body.product.id}).exec((err, prod) => {
             if(err){
                 return next();
             }
             if(prod){
+                console.log(prod)
                 prod.name = req.body.product.name;
                 prod.price = req.body.product.price;
                 prod.quantity = req.body.product.quantity;
                 prod.type = req.body.product.type;
+                prod._brandId = req.body.product.brandId;
+                console.log(prod)
                 prod.save(err => {
                     if(err){
                         return next();
                     }
-                    return res.status(200).send(prod);
+                    return res.redirect('/admin/products')
                 })
             }
             else{

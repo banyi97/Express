@@ -4,9 +4,7 @@ const requireOption = require('../requireOption');
 module.exports = function (obj) {
     const AddressModel = requireOption(obj, 'Address');
 
-    return function (req, res, next) {
-        console.log("Body")
-        console.log(req.body.address)     
+    return function (req, res, next) {   
         if (  
             typeof req.body.address === 'undefined' ||
             typeof req.body.address.id === 'undefined' ||

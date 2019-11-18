@@ -11,27 +11,27 @@ module.exports = function (obj) {
             typeof req.body.product === 'undefined' ||
             typeof req.body.product.name === 'undefined' ||
             typeof req.body.product.price === 'undefined' ||
-            typeof req.body.product.quantity === 'undefined' 
-        //    typeof req.body.product.brand === 'undefined' ||
-        //    typeof req.body.product.name === 'undefined'
+            typeof req.body.product.quantity === 'undefined' ||
+            typeof req.body.product.brandId === 'undefined' ||
+            typeof req.body.product.type === 'undefined' ||
+            typeof req.body.product.pic === 'undefined' 
             ){
                 return res.render('400', {error: ""})
         }
-        ProductModel.findOne({ name: req.body.product.name }).exec((err, _prod) => {
-            if(err){
-                return next();
-            }
-            BrandModel.findOne({_id: req.body.product._brandId}).exec((err, brand) => {
+        BrandModel.findOne({_id: req.body.product.brandId}).exec((err, brand) => {
+            if(brand){
                 var product = new ProductModel(req.body.product);
                 product.createDate = new Date();
-                product._brandId = brand._id;
+                product._brandId = req.body.product.brandId;
                 product.save(err => {
                     if(err){
                         return next();
                     }           
                     return res.redirect('/admin/products');
                 })
-            })
+            }
+            else
+                return res.render('400', {error: ""})
         });
     };
 };

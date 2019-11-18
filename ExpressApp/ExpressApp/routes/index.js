@@ -148,7 +148,6 @@ module.exports = function(app) {
     app.get('/admin/products', 
         authMw(obj),
         adminAuthMw(obj),
-        brandGetsMw(obj),
         productGetsMw(obj),
         renderMw(obj, 'adminProducts'));
 
@@ -157,7 +156,13 @@ module.exports = function(app) {
         adminAuthMw(obj),
         productCreateMw(obj));
 
-    app.put('/admin/products/:id',
+    app.get('/admin/products/modify?:id',
+        authMw(obj),
+        adminAuthMw(obj),
+        productGetMw(obj),
+        renderMw(obj, 'adminProduct_modify'));
+
+    app.post('/admin/products/update',
         authMw(obj),
         adminAuthMw(obj),
         productModifyMw(obj));
