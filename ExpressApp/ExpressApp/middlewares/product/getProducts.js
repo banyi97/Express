@@ -14,8 +14,6 @@ module.exports = function (obj) {
                     return next();
                 }
                 var ret = new Array();
-                console.log(brands)
-                console.log(prods)
                 brands.forEach(brand => {
                     prods.forEach(prod => {                        
                         if(brand._id.equals(prod._brandId)){
@@ -35,7 +33,6 @@ module.exports = function (obj) {
                         }
                     });
                 });
-                console.log(ret)
                 res.locals.brands = brands;
                 res.locals.products = ret;        
                 return next();

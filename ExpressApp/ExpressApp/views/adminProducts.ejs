@@ -60,14 +60,14 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST">
+                        <form method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                               <label for="exampleInputName">Name</label>
-                              <input required type="text" name="product[name]" class="form-control" id="exampleInputName" placeholder="Enter a name">
+                              <input required type="text" name="name" class="form-control" id="exampleInputName" placeholder="Enter a name">
                             </div>                    
                               <div class="form-group">
                                   <label for="exampleFormControlSelect2">Brand of headphone</label>
-                                  <select required class="form-control" name="product[brandId]"  id="exampleFormControlSelect2">
+                                  <select required class="form-control" name="brandId"  id="exampleFormControlSelect2">
                                       <option value="">Select a brand</option>
                                       <% if (brands) { %>
                                         <% brands.forEach(brand => { %>
@@ -78,15 +78,15 @@
                                 </div>
                             <div class="form-group">
                               <label for="exampleInputPrice">Price</label>
-                              <input required type="number" name="product[price]" value="0" min="0" class="form-control" id="exampleInputPrice" placeholder="Price">
+                              <input required type="number" name="price" value="0" min="0" class="form-control" id="exampleInputPrice" placeholder="Price">
                             </div> 
                             <div class="form-group">
                                 <label for="exampleInputQuantity">Quantity</label>
-                                <input required type="number" name="product[quantity]" value="0" min="0" class="form-control" id="exampleInputQuantity" placeholder="Quantity">
+                                <input required type="number" name="quantity" value="0" min="0" class="form-control" id="exampleInputQuantity" placeholder="Quantity">
                               </div>
                               <div class="form-group">
                                   <label for="exampleFormControlSelect2">Type of headphone</label>
-                                  <select name="product[type]" required class="form-control" id="exampleFormControlSelect2">
+                                  <select name="type" required class="form-control" id="exampleFormControlSelect2">
                                       <option value="">Select a type</option>
                                       <option value="1">Open</option>
                                       <option value="2">Closed</option>
@@ -94,7 +94,7 @@
                                   </select>
                                 </div>
                                 <div class="custom-file">
-                                    <input type="file" name="product[pic]" accept="image/*" class="custom-file-input" id="customFile">
+                                    <input required type="file" name="image" accept="image/*" class="custom-file-input" id="customFile">
                                     <label class="custom-file-label" for="customFile">Choose image</label>
                                   </div>
                             <div class="modal-footer">

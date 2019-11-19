@@ -1,3 +1,6 @@
+const fs=require('fs');
+const multer = require('multer');
+
 const renderMw = require('../middlewares/generic/render');
 const errorHandlerMw = require('../middlewares/generic/errorHandler');
 
@@ -57,6 +60,17 @@ module.exports = function(app) {
         Address: Address,
         Brand: Brand
     };
+
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+          cb(null, 'public/img')
+        },
+        filename: function (req, file, cb) {
+          cb(null, "image_"+Date.now()+".jpg")
+        }
+    });
+       
+    const upload = multer({ storage: storage });
 
     app.get('/', 
         noAuthMw(obj),
@@ -154,6 +168,7 @@ module.exports = function(app) {
     app.post('/admin/products', 
         authMw(obj),
         adminAuthMw(obj),
+        upload.single('image'), 
         productCreateMw(obj));
 
     app.get('/admin/products/modify?:id',
