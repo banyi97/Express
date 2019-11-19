@@ -112,7 +112,7 @@ module.exports = function(app) {
         getCartMw(obj),
         renderMw(obj, 'cart'));
 
-    app.get('/addtocart/?id',
+    app.post('/addtocard',
         noAuthMw(obj),
         addToCardMw(obj));
 

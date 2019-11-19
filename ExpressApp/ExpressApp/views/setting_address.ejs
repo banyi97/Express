@@ -18,10 +18,10 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addressModal">
                     Add new address
                   </button>
-              <ul class="list-group">
+             
                 <% if (address) { %>
                   <% address.forEach(addr => { %>
-                    <li class="list-group-item col-11">
+                 
                       <div class="row">
                         <div class="card">
                           <div class="card-body">
@@ -33,10 +33,10 @@
                           </div>
                         </div>
                       </div>
-                    </li>
+                   
                   <% }); %>
                 <% } %>
-              </ul>
+           
               <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">

@@ -22,13 +22,11 @@ module.exports = function (obj) {
                 return next();
             }
             if(prod){
-                console.log(prod)
                 prod.name = req.body.product.name;
                 prod.price = req.body.product.price;
                 prod.quantity = req.body.product.quantity;
                 prod.type = req.body.product.type;
                 prod._brandId = req.body.product.brandId;
-                console.log(prod)
                 prod.save(err => {
                     if(err){
                         return next();

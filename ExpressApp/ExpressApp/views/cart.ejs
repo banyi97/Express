@@ -12,6 +12,19 @@
   <body>
       <% include navbar.ejs %>  
       Cart elements
-      
+      <% if (cart) { %>
+        <% cart.forEach(prod => { %>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <div>
+                <a href="/product/?id=<%= prod.id %>"><%= prod.name %></a>
+                <%= prod.quant %>
+                <%= prod.price * prod.quant %>
+                <button>Alert</button>
+              </div>
+            </li>
+          </ul>
+        <% }); %>
+      <% } %>
   </body>
 </html>
