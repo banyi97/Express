@@ -28,7 +28,8 @@ module.exports = function (obj) {
                                 name: brand.name
                             },
                             quantity: prod[0].quantity,
-                            type: prod[0].type
+                            type: prod[0].type,
+                            image: prod[0].image
                         })     
                     }
                 });         

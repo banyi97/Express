@@ -15,7 +15,7 @@
    <div class="container">
     <div class="row">
       <div class="col-3 text-center">
-          <img src="" width="200" height="200" />
+        <img src="/img/<%=product[0].image%>" width="200" height="200" alt="headphone image">
           <form action="/addtocard" method="POST">
             <input type="number" name="cart[quant]" value="1" min="1" required>
             <input type="hidden" name="cart[id]" value="<%= product[0].id %>" required>

@@ -31,6 +31,7 @@ const brandGetsMw = require('../middlewares/brand/getBrands');
 
 const productCreateMw = require('../middlewares/product/createProduct');
 const productModifyMw = require('../middlewares/product/modifyProduct');
+const productModifyPicMw = require('../middlewares/product/modifyProdImg');
 const productRemoveMw = require('../middlewares/product/removeProduct');
 const productGetsMw = require('../middlewares/product/getProducts');
 const productGetMw = require('../middlewares/product/getProduct');
@@ -181,6 +182,12 @@ module.exports = function(app) {
         authMw(obj),
         adminAuthMw(obj),
         productModifyMw(obj));
+
+    app.post('/admin/products/updateIMG',
+        authMw(obj),
+        adminAuthMw(obj),
+        upload.single('image'), 
+        productModifyPicMw(obj));
 
     app.get('/admin/products/delete?:id', 
         authMw(obj),

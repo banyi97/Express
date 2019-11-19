@@ -28,11 +28,13 @@ module.exports = function (obj) {
                                 quantity: prod.quantity,
                                 type: prod.type,
                                 createDate: prod.createDate,
-                                updated: prod.updated
+                                updated: prod.updated,
+                                image: prod.image
                             });
                         }
                     });
                 });
+                console.log(ret)
                 res.locals.brands = brands;
                 res.locals.products = ret;        
                 return next();

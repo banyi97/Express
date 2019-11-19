@@ -8,9 +8,7 @@ module.exports = function (obj) {
     const ProductModel = requireOption(obj, 'Product');
     const BrandModel = requireOption(obj, 'Brand');
 
-    return function (req, res, next) {  
-        console.log("Call")     
-        console.log(req.body)
+    return function (req, res, next) {    
         if (  
             typeof req.body === 'undefined' ||
             typeof req.body.name === 'undefined' ||
@@ -26,7 +24,7 @@ module.exports = function (obj) {
                 var product = new ProductModel(req.body);
                 product.createDate = new Date();
                 product._brandId = req.body.brandId;
-                product.pic=req.file.path.split("\\")[2];
+                product.image = req.file.path.split("\\")[2];
                 product.save(err => {
                     if(err){
                         return next();
