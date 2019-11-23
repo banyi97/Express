@@ -3,7 +3,6 @@ const requireOption = require('../requireOption');
 // Visszaadja a kosar tartalmat
 module.exports = function (obj) {
     const ProductModel = requireOption(obj, 'Product');
-
     return function (req, res, next) {    
         if (typeof req.session.cart === 'undefined') {     
             res.locals.cart = null;
@@ -25,7 +24,6 @@ module.exports = function (obj) {
                             selectedProd.push(copy_prod);
                         }
                     });
-                    console.log(selectedProd)
                     res.locals.cart = selectedProd;    
                 });
                 return next();

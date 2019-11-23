@@ -11,7 +11,6 @@ module.exports = function (obj) {
             }
             res.locals.orders = orders;
             return next();
-        //    return res.status(200).send(brands = _brands);
         });
     };
 };

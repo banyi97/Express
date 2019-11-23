@@ -49,12 +49,15 @@ const removeAllCartMw = require('../middlewares/cart/removeAllCart');
 const modifyCartElementMw = require('../middlewares/cart/modifyCart');
 
 const ordersMw = require('../middlewares/order/getOrders');
+const order1Mw = require('../middlewares/order/order1');
+const createOrderMw = require('../middlewares/order/createOrder');
 
 const User = require('../models/user');
 const Order = require('../models/order');
 const Product = require('../models/product');
 const Address = require('../models/address');
 const Brand = require('../models/brand');
+const ProductOrder = require('../models/productOrder');
 
 module.exports = function(app) {
     const obj = {
@@ -62,7 +65,8 @@ module.exports = function(app) {
         Order: Order,
         Product: Product,
         Address: Address,
-        Brand: Brand
+        Brand: Brand,
+        ProductOrder: ProductOrder
     };
 
     const storage = multer.diskStorage({
@@ -141,6 +145,16 @@ module.exports = function(app) {
     app.delete('/cart/remove?:id',
         noAuthMw(obj),
         removeFromCartMw(obj));
+
+    app.get('/order1',
+        authMw(obj),
+        order1Mw(obj),
+        renderMw(obj, 'newOrder'));
+
+    app.post('/order1',
+        authMw(obj),
+        createOrderMw(obj),
+        renderMw(obj, 'newOrder'));
 
     app.get('/user/setting/account', 
         authMw(obj),

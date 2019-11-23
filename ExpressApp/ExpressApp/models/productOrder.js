@@ -1,7 +1,7 @@
 const Schema = require('mongoose').Schema;
 const db = require('../database/db')
 
-const Address = db.model('ProductOrder', {
+const ProductOrder = db.model('ProductOrder', {
     name: String,
     price: Number,
     quantity: Number,
@@ -18,4 +18,4 @@ const Address = db.model('ProductOrder', {
     },
 });
 
-module.exports = Address;
+module.exports = ProductOrder;

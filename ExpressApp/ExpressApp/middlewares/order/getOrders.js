@@ -5,7 +5,7 @@ module.exports = function (obj) {
     const OrderModel = requireOption(obj, 'Order');
 
     return function (req, res, next) {       
-        OrderModel.find({}).exec((err, orders) => {
+        OrderModel.find({_userId: req.session.userid}).exec((err, orders) => {
             if(err){
                 return next();
             }
