@@ -13,18 +13,52 @@
       <% include navbar.ejs %>  
       Cart elements
       <% if (cart) { %>
+        <ul class="list-group">
         <% cart.forEach(prod => { %>
-          <ul class="list-group">
             <li class="list-group-item">
               <div>
-                <a href="/product/?id=<%= prod.id %>"><%= prod.name %></a>
-                <%= prod.quant %>
-                <%= prod.price * prod.quant %>
-                <button>Alert</button>
+                <a href="/product/?id=<%= prod.id %>">
+                  <img src="/img/<%=prod.image%>" alt="Product image" width="75" height="75">
+                  <%= prod.name %>
+                  </a>
+                <input id="<%= prod.id %>" type="number" value="<%= prod.quant %>" min="1" onchange="modifyQuant(this)">
+                <%= prod.price%>$
+                <%= prod.price * prod.quant %>$
+                <button name="<%= prod.id %>" onclick="removeFromCart(this)">Remove</button>
               </div>
             </li>
-          </ul>
         <% }); %>
+      </ul>
+        <a href="/" class="btn btn-primary">Continue</a>
       <% } %>
   </body>
 </html>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+function modifyQuant(param){
+  axios.put(
+      '/cart/modify', 
+      {
+        cartItem: 
+        {
+          id: param.id,
+          newQuant: param.value
+        }
+      })
+      .then(resp => {
+        location.reload();
+    }).catch(error => {
+        console.log(error)
+  }) 
+}
+
+function removeFromCart(param){
+  axios.delete('/cart/remove?id='+param.name)
+      .then(resp => {
+      location.reload();
+    }).catch(error => {
+        console.log(error)
+  }) 
+}
+
+</script>

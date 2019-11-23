@@ -13,6 +13,7 @@ module.exports = function (obj) {
             var cart = req.session.cart;
             ProductModel.find({}).exec((err, prods) => {
                 if(err){
+                    res.locals.cart = null;
                     return next();
                 }
                 var selectedProd = [];
@@ -24,10 +25,10 @@ module.exports = function (obj) {
                             selectedProd.push(copy_prod);
                         }
                     });
-                console.log(selectedProd)
-                res.locals.cart = selectedProd;    
-                return next();
+                    console.log(selectedProd)
+                    res.locals.cart = selectedProd;    
                 });
+                return next();
             });
         }
     };

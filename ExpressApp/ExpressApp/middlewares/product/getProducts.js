@@ -34,7 +34,6 @@ module.exports = function (obj) {
                         }
                     });
                 });
-                console.log(ret)
                 res.locals.brands = brands;
                 res.locals.products = ret;        
                 return next();

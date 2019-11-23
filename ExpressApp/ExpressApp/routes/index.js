@@ -44,6 +44,9 @@ const addressGetMw = require('../middlewares/address/getAddress');
 
 const addToCardMw = require('../middlewares/cart/addcart');
 const getCartMw = require('../middlewares/cart/getcart');
+const removeFromCartMw = require('../middlewares/cart/removecart');
+const removeAllCartMw = require('../middlewares/cart/removeAllCart');
+const modifyCartElementMw = require('../middlewares/cart/modifyCart');
 
 const ordersMw = require('../middlewares/order/getOrders');
 
@@ -130,6 +133,14 @@ module.exports = function(app) {
     app.post('/addtocard',
         noAuthMw(obj),
         addToCardMw(obj));
+
+    app.put('/cart/modify',
+        noAuthMw(obj),
+        modifyCartElementMw(obj));
+
+    app.delete('/cart/remove?:id',
+        noAuthMw(obj),
+        removeFromCartMw(obj));
 
     app.get('/user/setting/account', 
         authMw(obj),
