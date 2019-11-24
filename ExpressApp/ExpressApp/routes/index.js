@@ -51,6 +51,8 @@ const modifyCartElementMw = require('../middlewares/cart/modifyCart');
 const ordersMw = require('../middlewares/order/getOrders');
 const order1Mw = require('../middlewares/order/order1');
 const createOrderMw = require('../middlewares/order/createOrder');
+const modifyOrderMw = require('../middlewares/order/modifyOrderState');
+const removeOrderMw = require('../middlewares/order/removeOrder');
 
 const User = require('../models/user');
 const Order = require('../models/order');
@@ -224,7 +226,17 @@ module.exports = function(app) {
         adminAuthMw(obj),
         adminOrdersMw(obj),
         renderMw(obj, 'adminOrders'));
-       
+
+    app.put('/admin/orders/modify', 
+        authMw(obj),
+        adminAuthMw(obj),
+        modifyOrderMw(obj));
+
+    app.delete('/admin/orders/remove?:id', 
+        authMw(obj),
+        adminAuthMw(obj),
+        removeOrderMw(obj));
+
     app.get('/admin/customers', 
         authMw(obj),
         adminAuthMw(obj),

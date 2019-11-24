@@ -33,7 +33,11 @@
                   <td><%= orders[i].createDate %></td>
                   <td><%= orders[i].state %></td>
                   <td><button class="btn btn-secondary">View</button></td>
-                  <td><button class="btn btn-danger">Remove</button></td>
+                  <% if (orders[i].state == "Complete") { %>
+                    <td><button disabled class="btn btn-danger">Remove</button></td>
+                  <% } else { %>
+                    <td><button class="btn btn-danger">Remove</button></td>
+                  <% } %>
                 </tr>    
                <% } %>
             </tbody>

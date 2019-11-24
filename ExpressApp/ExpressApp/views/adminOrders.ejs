@@ -11,13 +11,12 @@
   </head>
   <body>
     <% include navbar.ejs %>   
-    <div class="col-8">
+    <div class="col-12">
         <h3>Orders</h3>
         <table class="table">
             <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">User</th>
                   <th scope="col">OrderId</th>
                   <th scope="col">Date of order</th>
                   <th scope="col">State</th>
@@ -30,13 +29,19 @@
                 <% for (var i = 0; i < orders.length; i++) { %>
                   <tr>
                     <th scope="row"><%= i + 1 %></td>
-                    <td><%= orders[i].email %></td>
                     <td><%= orders[i].id %></td>
                     <td><%= orders[i].createDate %></td>
                     <td><%= orders[i].state %></td>
                     <td><button class="btn btn-secondary">View</button></td>
-                    <td><button class="btn btn-secondary">Change</button></td>
-                    <td><button class="btn btn-danger">Remove</button></td>
+                    <td>
+                      <select id="<%= orders[i].id %>" name="type" required class="form-control" id="exampleFormControlSelect2" onchange="modify(this)">
+                        <option value="">Change the order state</option>
+                        <option value="1">Open</option>
+                        <option value="2">Closed</option>
+                        <option value="3">Semiopen</option>
+                      </select>
+                    </td>
+                    <td><button name="<%= orders[i].id %>" onclick="remove(this)" class="btn btn-danger">Remove</button></td>
                   </tr>    
                  <% } %>
               </tbody>
@@ -44,8 +49,33 @@
     </div>
   </body>
 </html>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-$('.modal').on('hidden.bs.modal', function(){
-    $(this).find('form')[0].reset();
-});
+function modify(param){
+  if(param.value=="")
+    return
+  axios.put(
+      '/admin/orders/modify', 
+      {
+        order: 
+        {
+          id: param.id,
+          state: param.value
+        }
+      })
+      .then(resp => {
+        location.reload();
+    }).catch(error => {
+      console.log("error")
+    }) 
+}
+
+function remove(param){
+  axios.delete('/admin/orders/remove?id='+param.name)
+      .then(resp => {
+        location.reload();
+    }).catch(error => {
+      console.log("error")
+    }) 
+}
 </script>
