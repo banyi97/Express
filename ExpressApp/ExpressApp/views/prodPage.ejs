@@ -27,7 +27,17 @@
             <li class="list-group-item"> <%= product[0].name %> </li>
             <li class="list-group-item"> <%= product[0].price %>$ </li>
             <li class="list-group-item"> <%= product[0].brand.name %> </li>
-            <li class="list-group-item"> <%= product[0].type %> </li>
+            <li class="list-group-item">
+               <% if(product[0].type == 1){ %>
+                Open
+               <% } %>
+               <% if(product[0].type == 2){ %>
+                Closed
+               <% } %>
+               <% if(product[0].type == 3){ %>
+                Semiopen
+               <% } %>
+            </li>
           </ul>
       </div>
     </div>
