@@ -1,6 +1,6 @@
 const requireOption = require('../requireOption');
 
-// Visszadja az adott rendeles adatait
+// Visszadja az osszes adott rendelest
 module.exports = function (obj) {
     const OrderModel = requireOption(obj, 'Order');
 

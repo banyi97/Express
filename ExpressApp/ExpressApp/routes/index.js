@@ -53,6 +53,7 @@ const order1Mw = require('../middlewares/order/order1');
 const createOrderMw = require('../middlewares/order/createOrder');
 const modifyOrderMw = require('../middlewares/order/modifyOrderState');
 const removeOrderMw = require('../middlewares/order/removeOrder');
+const getOrderMw = require('../middlewares/order/getOrder');
 
 const User = require('../models/user');
 const Order = require('../models/order');
@@ -130,6 +131,10 @@ module.exports = function(app) {
         authMw(obj),
         ordersMw(obj),
         renderMw(obj, 'orders'));
+
+    app.get('/order?:id', 
+        authMw(obj),
+        getOrderMw(obj),);
 
     app.get('/cart', 
         noAuthMw(obj),
