@@ -134,7 +134,8 @@ module.exports = function(app) {
 
     app.get('/order?:id', 
         authMw(obj),
-        getOrderMw(obj),);
+        getOrderMw(obj),
+        renderMw(obj, 'order'));
 
     app.get('/cart', 
         noAuthMw(obj),

@@ -6,7 +6,12 @@ module.exports = function (obj) {
     const AddressModel = requireOption(obj, 'Address');
     const ProductModel = requireOption(obj, 'Product');
     const ProductOrderModel = requireOption(obj, 'ProductOrder');
-    return function (req, res, next) {       
+    return function (req, res, next) {    
+        if (  
+            typeof req.query.id === 'undefined'
+            ){
+                return res.render('400', {error: ""})
+        }   
         var ret = {};
         OrderModel.findOne({_id: req.query.id}).exec((err, order) => {
             if(err){
@@ -35,7 +40,8 @@ module.exports = function (obj) {
                                 }
                             });
                         });
-                        return res.status(200).send(ret);
+                        res.locals.order = ret;
+                        return next();
                     })
                 })
             })
