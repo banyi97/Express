@@ -16,7 +16,7 @@ module.exports = function (obj) {
                 return res.render('400', {error: ""})
         }
         var order = new OrderModel();
-        order.state = "Step 1."
+        order.state = "Draft";
         order.paymant = req.body.order.paymant;
         order.shippingType = req.body.order.shipping;
         order._addressId = req.body.order.addressId;
