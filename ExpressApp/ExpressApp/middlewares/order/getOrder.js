@@ -32,6 +32,7 @@ module.exports = function (obj) {
                             prods.forEach(prod => {
                                 if(prod._id.equals(element._productId)){
                                     ret.products.push({
+                                        id: prod._id,
                                         name: element.name,
                                         price: element.price,
                                         quant: element.quantity,

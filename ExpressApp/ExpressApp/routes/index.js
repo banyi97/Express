@@ -154,15 +154,14 @@ module.exports = function(app) {
         noAuthMw(obj),
         removeFromCartMw(obj));
 
-    app.get('/order1',
+    app.get('/newOrder',
         authMw(obj),
         order1Mw(obj),
         renderMw(obj, 'newOrder'));
 
-    app.post('/order1',
+    app.post('/newOrder',
         authMw(obj),
-        createOrderMw(obj),
-        renderMw(obj, 'newOrder'));
+        createOrderMw(obj));
 
     app.get('/user/setting/account', 
         authMw(obj),

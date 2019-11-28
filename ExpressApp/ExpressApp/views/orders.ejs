@@ -22,7 +22,6 @@
                 <th scope="col">Date of order</th>
                 <th scope="col">State</th>
                 <th scope="col">View order</th>
-                <th scope="col">Remove order</th>
               </tr>
             </thead>
             <tbody>
@@ -33,11 +32,6 @@
                   <td><%= orders[i].createDate %></td>
                   <td><%= orders[i].state %></td>
                   <td><a href="/order?id=<%= orders[i].id %>" class="btn btn-secondary">View</a></td>
-                  <% if (orders[i].state == "Complete") { %>
-                    <td><button disabled class="btn btn-danger">Remove</button></td>
-                  <% } else { %>
-                    <td><button class="btn btn-danger">Remove</button></td>
-                  <% } %>
                 </tr>    
                <% } %>
             </tbody>
