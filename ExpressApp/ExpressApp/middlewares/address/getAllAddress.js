@@ -5,13 +5,12 @@ module.exports = function (obj) {
     const AddressModel = requireOption(obj, 'Address');
 
     return function (req, res, next) {       
-        AddressModel.find({_userId: req.session.userid}).exec((err, addresses) => {
+        AddressModel.find({_userId: req.session.userid}, function (err, addresses) {
             if(err){
-                return next();
+                return next(err);
             }
             res.locals.address = addresses;
             return next();
-        //    return res.status(200).send(brands = _brands);
-        });
+        })
     };
 };
